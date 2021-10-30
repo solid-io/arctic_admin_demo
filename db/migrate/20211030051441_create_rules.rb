@@ -5,7 +5,7 @@ class CreateRules < ActiveRecord::Migration[6.1]
       t.string :rule_type
       t.string :name
       t.string :frequency_units
-      t.string :frequency
+      t.integer :frequency
       t.string :days_of_week, array: true
       t.date :start_date
       t.date :end_date

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_30_053315) do
+ActiveRecord::Schema.define(version: 2021_10_30_061826) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 2021_10_30_053315) do
     t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "time_zone"
     t.index ["email"], name: "index_admin_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   end
@@ -46,7 +47,7 @@ ActiveRecord::Schema.define(version: 2021_10_30_053315) do
     t.string "rule_type"
     t.string "name"
     t.string "frequency_units"
-    t.string "frequency"
+    t.integer "frequency"
     t.string "days_of_week", array: true
     t.date "start_date"
     t.date "end_date"
