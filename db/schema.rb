@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_30_040824) do
+ActiveRecord::Schema.define(version: 2021_10_30_051012) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,6 +39,24 @@ ActiveRecord::Schema.define(version: 2021_10_30_040824) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["email"], name: "index_admin_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
+  end
+
+  create_table "schedules", force: :cascade do |t|
+    t.integer "scheduleable_id"
+    t.string "scheduleable_type"
+    t.string "name"
+    t.boolean "active", default: false
+    t.integer "capacity"
+    t.string "user_types", array: true
+    t.boolean "exclude_lunch_time", default: false
+    t.string "lunch_hour_start"
+    t.string "lunch_hour_end"
+    t.string "beginning_of_week"
+    t.string "time_zone"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["active"], name: "index_schedules_on_active"
+    t.index ["scheduleable_id", "scheduleable_type"], name: "index_schedules_on_scheduleable_id_and_scheduleable_type"
   end
 
 end
