@@ -1,0 +1,19 @@
+<% context.instance_eval do
+    selectable_column
+    id_column
+    # TODO: Associate schedule to location product and display link back to product
+    # column :scheduleable_id
+    # column :scheduleable_type
+    column(:name) { |schedule| link_to schedule.name, edit_admin_schedule_path(schedule) }
+    column :active
+    column :capacity
+    # list_column(:user_types) { |schedule| UserType.where(id: schedule.user_types).ordered.pluck(:name)}
+    column("Exclude Lunch", :exclude_lunch_time)
+    column("Lunch Start", :lunch_hour_start) { |rule| rule.lunch_hour_start&.to_time&.strftime("%I:%M %P") }
+    column("Lunch End", :lunch_hour_end) { |rule| rule.lunch_hour_end&.to_time&.strftime("%I:%M %P") }
+    column :time_zone
+    column(:beginning_of_week) { |schedule| schedule.beginning_of_week.titleize }
+    column :updated_at
+    actions
+  end
+%>

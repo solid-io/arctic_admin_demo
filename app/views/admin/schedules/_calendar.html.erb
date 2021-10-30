@@ -1,0 +1,31 @@
+<% if @events.present? %>
+  <%= month_calendar(attribute: :start_date, beginning_of_week: :sunday, events: @events) do |date, events| %>
+    <div style="font-weight: medium; margin-bottom: 5px;"><%= date.strftime("%d") %></div>
+    <% events.sort_by(&:start_time).each do |event| %>
+    <% case %>
+    <% when event&.capacity == event&.availability %>
+      <div class="chip-all">
+          <%= event&.start_time.to_time.strftime("%I:%M %p") %>
+          <br/>
+          <span>SPOTS <%= event&.availability %></span>
+      </div>
+    <% when event&.availability < event&.capacity && event&.availability != 0 %>
+      <div class="chip-some">
+          <%= event&.start_time.to_time.strftime("%I:%M %p") %>
+          <br/>
+          <span>SPOTS <%= event&.availability %></span>
+      </div>
+    <% when event&.availability == 0 %>
+      <div class="chip-none">
+          <%= event&.start_time.to_time.strftime("%I:%M %p") %>
+          <br/>
+          <span>SPOTS <%= event&.availability %></span>
+      </div>
+    <% end %>
+    <% end %>
+  <% end %>
+<% else %>
+  <%= month_calendar do |date| %>
+    <div><%= date.strftime("%d") %></div>
+  <% end %>
+<% end %>

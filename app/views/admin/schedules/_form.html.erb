@@ -1,0 +1,72 @@
+<%=
+  active_admin_form_for [:admin, @schedule] do |f|
+    f.semantic_errors *f.object.errors.keys
+    tabs do
+      tab 'Schedule'do
+        f.inputs do
+          f.input :name, required: true
+          f.input :scheduleable_id, required: true
+          f.input :scheduleable_type, required: true
+          f.input :active, required: true
+          f.input :capacity, required: true
+          # f.input :user_types, as: :select,
+          #         collection: current_admin_user.user_types.ordered,
+          #         include_hidden: false,
+          #         input_html: { multiple: true, style: "width: 100%" }
+          f.input :exclude_lunch_time, label: "Exclude Lunch Times | Check to set lunch hours. Setting lunch start and end time will exclude this time from every day of the schedule.",
+                  input_html: { data: { if: "not_checked", then: 'hide', target: '.lunchtimes' } }
+          f.input :lunch_hour_start, as: :time_picker, label: "Start time",
+                  required: true,
+                  wrapper_html: { class: 'lunchtimes' }
+          f.input :lunch_hour_end, as: :time_picker, label: "End time",
+                  required: true,
+                  wrapper_html: { class: 'lunchtimes' }
+          f.input :time_zone, as: :select, label: "Schedules' timezone",
+                  collection: ActiveSupport::TimeZone.us_zones.map(&:name),
+                  required: true
+          f.input :beginning_of_week, as: :select,
+                  collection: Rule::DAYS_OF_WEEK.slice("Sunday", "Monday"),
+                  required: true,
+                  include_blank: false
+        end
+      end
+      if !f.object.new_record?
+        tab 'Rules' do
+          f.inputs do
+            f.has_many :rules, heading: false, allow_destroy: true do |r|
+              r.input :rule_type, as: :select,
+                      collection: Rule::RULE_TYPE,
+                      input_html: { data: { eq: 'exclusion', then: 'hide', target: '.inclusion' }, disabled: !r.object.new_record? },
+                      require: true,
+                      allow_blank: true
+              r.input :name, required: true
+              # TODO: For initial deploy frequency_units will be defaulted to minutely
+              # r.input :frequency_units, as: :select,
+              r.input :frequency_units, as: :hidden,
+                      collection: Rule::FREQUENCY_UNITS,
+                      required: true,
+                      include_blank: true,
+                      wrapper_html: { class: 'inclusion' }
+              r.input :days_of_week, as: :select,
+                      collection: Rule::DAYS_OF_WEEK,
+                      input_html: { multiple: true },
+                      required: true,
+                      include_blank: false,
+                      include_hidden: false,
+                      wrapper_html: { class: 'inclusion' }
+              r.input :frequency,
+                      wrapper_html: { class: 'inclusion' }
+              r.input :start_date, as: :datepicker,
+                      input_html: { autocomplete: 'off' }
+              r.input :end_date, as: :datepicker,
+                      input_html: { autocomplete: 'off' }
+              r.input :rule_hour_start, as: :time_picker, required: true, label: "Start time"
+              r.input :rule_hour_end, as: :time_picker, required: true, label: "End time"
+            end
+          end
+        end
+      end
+    end
+    f.actions
+  end
+%>

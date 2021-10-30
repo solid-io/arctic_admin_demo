@@ -1,0 +1,50 @@
+
+<% context.instance_eval do
+    panel link_to "Schedule Calendar", edit_admin_schedule_path(schedule) do
+      render partial: 'calendar'
+    end
+    panel "Schedule Details" do
+      table_for schedule do
+        column :id
+        column(:name) { |schedule| link_to schedule.name, edit_admin_schedule_path(schedule) }
+        column :active do |row|
+          status_tag row.active, ActiveAdmin::DynamicFields.edit_boolean(:active, save_admin_schedule_path(row.id), row.active)
+        end
+        column :capacity
+        # list_column(:user_types) { |schedule| UserType.where(id: schedule.user_types).ordered.pluck(:name)}
+        column("Exclude Lunch", :exclude_lunch_time) do |row|
+          status_tag row.exclude_lunch_time, ActiveAdmin::DynamicFields.edit_boolean(:exclude_lunch_time, save_admin_schedule_path(row.id), row.exclude_lunch_time)
+        end
+        column("Lunch Start", :lunch_hour_start) { |rule| rule.lunch_hour_start&.to_time&.strftime("%I:%M %P") }
+        column("Lunch End", :lunch_hour_end) { |rule| rule.lunch_hour_end&.to_time&.strftime("%I:%M %P") }
+        column :time_zone
+        column :beginning_of_week do |row|
+          select ActiveAdmin::DynamicFields.edit_select(:beginning_of_week, save_admin_schedule_path(row.id)) do
+            options_for_select(Rule::DAYS_OF_WEEK.slice("Sunday", "Monday"), row.beginning_of_week.downcase)
+          end
+        end
+        column :updated_at
+        if !schedule.rules.inclusion.empty?
+          column("Actions") { |schedule| link_to "Add Holiday Close times",  autoload_holiday_exlusions_admin_schedule_path, { class: "action-btn"} }
+        end
+      end
+    end
+    if !schedule.rules.empty?
+      panel "Schedule Rule Details" do
+        table_for schedule.rules do
+          column :id
+          column(:rule_type) { |rule| Rule::RULE_TYPE.invert[rule.rule_type] }
+          column :name
+          # column(:frequency_units) { |rule| rule.friendly_frequency_units(rule&.frequency_units) } TODO: For initial deploy frequency_units will be defaulted to minutely
+          column(:days_of_week) { |rule| rule.days_of_week.map{|day| day.titleize} if rule.days_of_week }
+          column(:frequency) { |rule| rule.friendly_frequency(rule&.frequency, rule&.frequency_units) }
+          column :start_date
+          column :end_date
+          column("Start Time", :rule_hour_start) { |rule| rule.rule_hour_start&.to_time&.strftime("%I:%M %P") }
+          column("End Time", :rule_hour_end) { |rule| rule.rule_hour_end&.to_time&.strftime("%I:%M %P") }
+          column :updated_at
+        end
+      end
+    end
+  end
+%>
