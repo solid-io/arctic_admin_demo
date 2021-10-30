@@ -1,0 +1,9 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  schedule_id: 1
+  event_time: 2021-10-29 23:33:15
+
+two:
+  schedule_id: 1
+  event_time: 2021-10-29 23:33:15
