@@ -1,0 +1,106 @@
+/* line 2, ../../../.rvm/gems/ruby-2.4.6/gems/simple_calendar-2.4.3/app/assets/stylesheets/simple_calendar.scss */
+.simple-calendar table {
+  -webkit-border-horizontal-spacing: 0px;
+  -webkit-border-vertical-spacing: 0px;
+  background-color: rgba(0, 0, 0, 0);
+  border: 1px solid #dddddd;
+  border-collapse: collapse;
+  box-sizing: border-box;
+  max-width: 100%;
+  width: 100%;
+}
+
+/* line 13, ../../../.rvm/gems/ruby-2.4.6/gems/simple_calendar-2.4.3/app/assets/stylesheets/simple_calendar.scss */
+.simple-calendar tr {
+  border-collapse: collapse;
+}
+
+/* line 17, ../../../.rvm/gems/ruby-2.4.6/gems/simple_calendar-2.4.3/app/assets/stylesheets/simple_calendar.scss */
+.simple-calendar th {
+  padding: 6px;
+  border-bottom: 2px solid #dddddd;
+  border-collapse: collapse;
+  border-left: 1px solid #dddddd;
+  border-right: 1px solid #dddddd;
+  border-top: 0px none #333333;
+  box-sizing: border-box;
+  text-align: left;
+}
+
+/* line 28, ../../../.rvm/gems/ruby-2.4.6/gems/simple_calendar-2.4.3/app/assets/stylesheets/simple_calendar.scss */
+.simple-calendar td {
+  padding: 6px;
+  vertical-align: top;
+  width: 14%;
+  border: 1px solid #ddd;
+  border-top-color: #dddddd;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-right-color: #dddddd;
+  border-right-style: solid;
+  border-right-width: 1px;
+  border-bottom-color: #dddddd;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-left-color: #dddddd;
+  border-left-style: solid;
+  border-left-width: 1px;
+}
+
+/* line 48, ../../../.rvm/gems/ruby-2.4.6/gems/simple_calendar-2.4.3/app/assets/stylesheets/simple_calendar.scss */
+.simple-calendar .day {
+  height: 80px;
+}
+
+/* line 60, ../../../.rvm/gems/ruby-2.4.6/gems/simple_calendar-2.4.3/app/assets/stylesheets/simple_calendar.scss */
+.simple-calendar .today {
+  // background: #ff9239;
+  background: rgba(75, 172, 254, 0.5);
+}
+
+/* line 69, ../../../.rvm/gems/ruby-2.4.6/gems/simple_calendar-2.4.3/app/assets/stylesheets/simple_calendar.scss */
+.simple-calendar .prev-month {
+  background: #ddd;
+}
+
+/* line 72, ../../../.rvm/gems/ruby-2.4.6/gems/simple_calendar-2.4.3/app/assets/stylesheets/simple_calendar.scss */
+.simple-calendar .next-month {
+  background: #ddd;
+}
+
+.simple-calendar .chip-all {
+  display: inline-block;
+  background: rgba(75, 172, 254, 0.5);
+  border-radius: 10px;
+  margin: 2px 0 2px 5px;
+  padding: 5px;
+  font-size: small;
+  justify-content: center;
+  text-align: center;
+}
+
+.simple-calendar .chip-some {
+  display: inline-block;
+  background: rgba(240, 255, 0, 0.5);
+  border-radius: 10px;
+  margin: 2px 0 2px 5px;
+  padding: 3px;
+  font-size: small;
+  justify-content: center;
+  text-align: center;
+}
+
+.simple-calendar .chip-none {
+  display: inline-block;
+  background: rgba(220, 71, 71, 0.5);
+  border-radius: 10px;
+  margin: 2px 0 2px 5px;
+  padding: 3px;
+  font-size: small;
+  justify-content: center;
+  text-align: center;
+}
+
+.simple-calendar span {
+  font-size: smaller;
+}

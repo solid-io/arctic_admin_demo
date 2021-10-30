@@ -6,3 +6,5 @@ import "@activeadmin/activeadmin";
 
 import "@fortawesome/fontawesome-free/css/all.css";
 import "arctic_admin";
+
+require("activeadmin_dynamic_fields");
