@@ -68,37 +68,35 @@
   background: #ddd;
 }
 
-.simple-calendar .chip-all {
+.simple-calendar .has-events div:nth-child(1n + 2) {
   display: inline-block;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 10px;
+  margin: 2px 0 2px 0px;
+  padding: 3px;
+  font-size: small;
+  justify-content: center;
+  text-align: center;
+}
+
+.simple-calendar .has-events div:nth-child(1n + 2):hover {
+  box-shadow: none;
+}
+
+.simple-calendar .has-events div:nth-child(3n + 2) {
+  margin-left: 15px;
+}
+
+.simple-calendar .capacity-all {
   background: rgba(75, 172, 254, 0.5);
-  border-radius: 10px;
-  margin: 2px 0 2px 0px;
-  padding: 5px;
-  font-size: small;
-  justify-content: center;
-  text-align: center;
 }
 
-.simple-calendar .chip-some {
-  display: inline-block;
+.simple-calendar .capacity-some {
   background: rgba(240, 255, 0, 0.5);
-  border-radius: 10px;
-  margin: 2px 0 2px 0px;
-  padding: 3px;
-  font-size: small;
-  justify-content: center;
-  text-align: center;
 }
 
-.simple-calendar .chip-none {
-  display: inline-block;
+.simple-calendar .capacity-none {
   background: rgba(220, 71, 71, 0.5);
-  border-radius: 10px;
-  margin: 2px 0 2px 0px;
-  padding: 3px;
-  font-size: small;
-  justify-content: center;
-  text-align: center;
 }
 
 .simple-calendar span {
