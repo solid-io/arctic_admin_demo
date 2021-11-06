@@ -36,14 +36,30 @@ ActiveAdmin.register Schedule do
     end
   end
 
-  member_action :autoload_holiday_exlusions, method: :get do
+ member_action :refresh_holiday_exlusions, method: :get do
     schedule_id = params[:id]
     resource.rules.exclusion.each do |rule|
-      if Schedule::NATIONAL_HOLIDAYS.has_key?(rule.start_date.to_s) && Schedule::NATIONAL_HOLIDAYS.invert.has_key?(rule.name) && rule.end_date.nil? && rule.rule_hour_start.empty? && rule.rule_hour_end.empty?
+      if Schedule::NATIONAL_HOLIDAYS.has_key?(rule.start_date.to_s) && Schedule::NATIONAL_HOLIDAYS.invert.has_key?(rule.name) && rule.end_date.nil? && rule.rule_hour_start.blank? && rule.rule_hour_end.blank?
           rule.destroy
       end
     end
     resource.current_holidays.each {|holiday| Rule.create(schedule_id: schedule_id, rule_type: "exclusion", name: holiday[1], start_date: holiday[0])}
+    redirect_to admin_schedule_path(schedule_id)
+  end
+
+  member_action :add_holiday_exlusions, method: :get do
+    schedule_id = params[:id]
+    resource.current_holidays.each {|holiday| Rule.create(schedule_id: schedule_id, rule_type: "exclusion", name: holiday[1], start_date: holiday[0])}
+    redirect_to admin_schedule_path(schedule_id)
+  end
+
+  member_action :remove_holiday_exlusions, method: :get do
+    schedule_id = params[:id]
+    resource.rules.exclusion.each do |rule|
+      if Schedule::NATIONAL_HOLIDAYS.has_key?(rule.start_date.to_s) && Schedule::NATIONAL_HOLIDAYS.invert.has_key?(rule.name) && rule.end_date.nil? && rule.rule_hour_start.blank? && rule.rule_hour_end.blank?
+          rule.destroy
+      end
+    end
     redirect_to admin_schedule_path(schedule_id)
   end
 
@@ -77,6 +93,8 @@ ActiveAdmin.register Schedule do
 
   csv do
     column :id
+    column :scheduleable_id
+    column :scheduleable_type
     column :name
     column :active
     column :capacity
@@ -86,6 +104,8 @@ ActiveAdmin.register Schedule do
     column(:lunch_hour_end) { |schedule| schedule.lunch_hour_end&.to_time&.strftime("%I:%M %P") }
     column :time_zone
     column(:beginning_of_week) { |schedule| schedule.beginning_of_week.titleize }
+    column(:rules) { |schedule| schedule.rules.map(&:name).join(', ') }
+    column(:holidays) { |schedule| schedule.schedule_holiday_rule_exits? }
     column :created_at
     column :updated_at
   end

@@ -1,5 +1,5 @@
 class Schedule < ApplicationRecord
-  # belongs_to :scheduleable, polymorphic: true
+  belongs_to :scheduleable, polymorphic: true, optional: true
   has_many :rules, dependent: :destroy
   has_many :schedule_events
   accepts_nested_attributes_for :rules, allow_destroy: true
@@ -57,7 +57,9 @@ class Schedule < ApplicationRecord
       appointment_count = event.medtest_location_appointments.count
       search_time = event.event_time
       found_event = scheduled_events.find_index{|se| se.start_time == search_time}
-      scheduled_events[found_event].availability = scheduled_events[found_event].capacity - appointment_count
+      if found_event
+        scheduled_events[found_event].availability = scheduled_events[found_event].capacity - appointment_count
+      end
     end
     scheduled_events
   end
@@ -139,6 +141,10 @@ class Schedule < ApplicationRecord
 
   def current_holidays
     Schedule::NATIONAL_HOLIDAYS.select { |key, value| key.to_date.between?(Date.today, rules.inclusion.pluck(:end_date).max) }
+  end
+
+  def schedule_holiday_rule_exits?
+    (rules.exclusion.pluck(:name).uniq & Schedule::NATIONAL_HOLIDAYS.invert.keys).any?
   end
 
   # https://www.opm.gov/policy-data-oversight/pay-leave/federal-holidays
@@ -260,7 +266,7 @@ class Schedule < ApplicationRecord
 
   def set_defaults
     self.capacity ||= 25
-    # self.time_zone ||= current_user.time_zone # LocationProduct.find(self.scheduleable_id).location.time_zone if self.scheduleable_id.present?
+    # self.time_zone ||= LocationProduct.find(self.scheduleable_id).location.time_zone if self.scheduleable_id.present?
     self.beginning_of_week ||= "sunday"
   end
 

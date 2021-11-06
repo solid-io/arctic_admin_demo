@@ -25,7 +25,14 @@
         end
         column :updated_at
         if !schedule.rules.inclusion.empty?
-          column("Actions") { |schedule| link_to "Add Holiday Close times",  autoload_holiday_exlusions_admin_schedule_path, { class: "action-btn"} }
+          column :holidays do
+            div class: "table_actions" do
+              add = schedule.schedule_holiday_rule_exits? ? "" : link_to("Add",  add_holiday_exlusions_admin_schedule_path, { class: "button"})
+              refresh = schedule.schedule_holiday_rule_exits? ? span do link_to("Refresh",  refresh_holiday_exlusions_admin_schedule_path, { class: "button"}) end : ""
+              remove = schedule.schedule_holiday_rule_exits? ? span do link_to("Remove",  remove_holiday_exlusions_admin_schedule_path, { class: "button"}) end : ""
+              [add, refresh, remove].reject(&:blank?).join.html_safe
+            end
+          end
         end
       end
     end

@@ -13,6 +13,8 @@
     column("Lunch End", :lunch_hour_end) { |rule| rule.lunch_hour_end&.to_time&.strftime("%I:%M %P") }
     column :time_zone
     column(:beginning_of_week) { |schedule| schedule.beginning_of_week.titleize }
+    list_column(:rules) { |schedule| schedule.rules.map(&:name) }
+    bool_column(:holidays) { |schedule| schedule.schedule_holiday_rule_exits? }
     column :updated_at
     actions
   end
