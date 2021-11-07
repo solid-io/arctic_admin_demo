@@ -1,5 +1,5 @@
 ActiveAdmin.register Schedule do
-  menu label: "Schedules", parent: "Scheduler"
+  menu parent: "Organization"
 
   # config.remove_action_item(:new)
 
