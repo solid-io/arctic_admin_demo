@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_30_061826) do
+ActiveRecord::Schema.define(version: 2021_11_07_070136) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,6 +45,30 @@ ActiveRecord::Schema.define(version: 2021_10_30_061826) do
     t.string "time_zone"
     t.index ["email"], name: "index_admin_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
+  end
+
+  create_table "companies", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.string "subdomain"
+    t.string "domain"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "locations", force: :cascade do |t|
+    t.bigint "company_id", null: false
+    t.string "name"
+    t.string "address_1"
+    t.string "address_2"
+    t.string "city"
+    t.string "state"
+    t.string "postal"
+    t.string "country"
+    t.string "time_zone"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["company_id"], name: "index_locations_on_company_id"
   end
 
   create_table "rules", force: :cascade do |t|
@@ -89,4 +113,5 @@ ActiveRecord::Schema.define(version: 2021_10_30_061826) do
     t.index ["scheduleable_id", "scheduleable_type"], name: "index_schedules_on_scheduleable_id_and_scheduleable_type"
   end
 
+  add_foreign_key "locations", "companies"
 end
