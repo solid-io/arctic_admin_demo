@@ -41,7 +41,7 @@ ActiveAdmin.register Schedule do
       schedule.active = !schedule.active
       schedule.save
     end
-    redirect_to collection_path, alert: "The schedules active status has been toggled."
+    redirect_to collection_path, notice: "The schedules active status has been toggled."
   end
 
   batch_action :clone, confirm: "Close time rules included by default, check box if you want to omit.", form: {Exclude: :checkbox} do |ids, inputs|
@@ -56,21 +56,21 @@ ActiveAdmin.register Schedule do
         @schedule.rules << schedule.rules.map(&:dup)
       end
     end
-    redirect_to collection_path, alert: "The schedules have been cloned."
+    redirect_to collection_path, notice: "The schedules have been cloned."
   end
 
   batch_action :add_holidays do |ids|
     batch_action_collection.find(ids).each do |schedule|
       schedule.add_holidays(schedule)
     end
-    redirect_to collection_path, alert: "The schedules have had holidays added."
+    redirect_to collection_path, notice: "The schedules have had holidays added."
   end
 
   batch_action :remove_holidays do |ids|
     batch_action_collection.find(ids).each do |schedule|
       schedule.remove_holidays(schedule)
     end
-    redirect_to collection_path, alert: "The schedules have had holidays removed."
+    redirect_to collection_path, notice: "The schedules have had holidays removed."
   end
 
   batch_action :add_close_times, form: {"Start Date": :datepicker, "End Date": :datepicker, "Start Time": :text, "End Time": :text} do |ids, inputs|
@@ -80,7 +80,7 @@ ActiveAdmin.register Schedule do
       end
     end
     if inputs["Start Date"].present?
-      redirect_to collection_path, alert: "The schedules have been updated with close time rules."
+      redirect_to collection_path, notice: "The schedules have been updated with close time rules."
     else
       redirect_to collection_path, alert: "Start Date is required for close time rules."
     end
@@ -88,23 +88,23 @@ ActiveAdmin.register Schedule do
 
   member_action :add_holiday_exlusions, method: :get do
     resource.add_holidays(resource)
-    redirect_to admin_schedule_path(params[:id])
+    redirect_to admin_schedule_path(params[:id]), notice: "Holidays have been added to the schedule."
   end
 
   member_action :refresh_holiday_exlusions, method: :get do
     resource.remove_holidays(resource)
     resource.add_holidays(resource)
-    redirect_to admin_schedule_path(params[:id])
+    redirect_to admin_schedule_path(params[:id]), notice: "Holidays have been refreshed for the schedule."
   end
 
   member_action :remove_holiday_exlusions, method: :get do
     resource.remove_holidays(resource)
-    redirect_to admin_schedule_path(params[:id])
+    redirect_to admin_schedule_path(params[:id]), notice: "Holidays have been removed from the schedule."
   end
 
   member_action :save, method: :post do
     ActiveAdmin::DynamicFields.update(resource,  params, [:active, :exclude_lunch_time, :beginning_of_week])
-    redirect_to admin_schedule_path(params[:id])
+    redirect_to admin_schedule_path(params[:id]), notice: "This is not working."
   end
 
   filter :id
