@@ -82,7 +82,6 @@ ActiveAdmin.register Schedule do
   end
 
   batch_action :add_close_times, form: {"Start Date": :datepicker, "End Date": :datepicker, "Start Time": :text, "End Time": :text} do |ids, inputs|
-    binding.pry
     batch_action_collection.find(ids).each do |schedule|
       if inputs["Start Date"].present?
         schedule.rules.create(rule_type: "exclusion", name: "Close Time Rule", start_date: inputs["Start Date"], end_date: inputs["End Date"].blank? ? nil : inputs["End Date"], rule_hour_start: inputs["Start Time"].blank? ? "" : Time.parse(inputs["Start Time"]).strftime("%H:%M"), rule_hour_end: inputs["End Time"].blank? ? "" : Time.parse(inputs["End Time"]).strftime("%H:%M") )
