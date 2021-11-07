@@ -61,3 +61,5 @@ gem 'ice_cube'
 gem 'simple_calendar'
 gem 'activeadmin_dynamic_fields'
 gem 'activeadmin_addons'
+gem 'country_select'
+
