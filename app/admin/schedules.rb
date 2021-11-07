@@ -52,13 +52,13 @@ ActiveAdmin.register Schedule do
     redirect_to collection_path, alert: "The schedules have been inactivated."
   end
 
-  batch_action :clone, confirm: "Do you want to include close times?", form: {no: :checkbox} do |ids, inputs|
+  batch_action :clone, confirm: "Close time rules included by default, check box if you want to omit.", form: {Exclude: :checkbox} do |ids, inputs|
     batch_action_collection.find(ids).each do |schedule|
       @schedule = schedule.dup
       @schedule.name = "UPDATE ME..."
       @schedule.active = false
       @schedule.save
-      if inputs["no"] == "on"
+      if inputs["Exclude"] == "on"
         @schedule.rules << schedule.rules.inclusion.map(&:dup)
       else
         @schedule.rules << schedule.rules.map(&:dup)
@@ -79,6 +79,20 @@ ActiveAdmin.register Schedule do
       schedule.remove_holidays(schedule)
     end
     redirect_to collection_path, alert: "The schedules have had holidays removed."
+  end
+
+  batch_action :add_close_times, form: {"Start Date": :datepicker, "End Date": :datepicker, "Start Time": :text, "End Time": :text} do |ids, inputs|
+    binding.pry
+    batch_action_collection.find(ids).each do |schedule|
+      if inputs["Start Date"].present?
+        schedule.rules.create(rule_type: "exclusion", name: "Close Time Rule", start_date: inputs["Start Date"], end_date: inputs["End Date"].blank? ? nil : inputs["End Date"], rule_hour_start: inputs["Start Time"].blank? ? "" : Time.parse(inputs["Start Time"]).strftime("%H:%M"), rule_hour_end: inputs["End Time"].blank? ? "" : Time.parse(inputs["End Time"]).strftime("%H:%M") )
+      end
+    end
+    if inputs["Start Date"].present?
+      redirect_to collection_path, alert: "The schedules have been updated with close time rules."
+    else
+      redirect_to collection_path, alert: "Start Date is required for close time rules."
+    end
   end
 
   member_action :add_holiday_exlusions, method: :get do
