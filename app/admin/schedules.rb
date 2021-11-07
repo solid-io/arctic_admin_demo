@@ -36,20 +36,12 @@ ActiveAdmin.register Schedule do
     end
   end
 
-  batch_action :activate do |ids|
+  batch_action :toggle_active do |ids|
     batch_action_collection.find(ids).each do |schedule|
-      schedule.active = true
+      schedule.active = !schedule.active
       schedule.save
     end
-    redirect_to collection_path, alert: "The schedules have been activated."
-  end
-
-  batch_action :inactivate do |ids|
-    batch_action_collection.find(ids).each do |schedule|
-      schedule.active = false
-      schedule.save
-    end
-    redirect_to collection_path, alert: "The schedules have been inactivated."
+    redirect_to collection_path, alert: "The schedules active status has been toggled."
   end
 
   batch_action :clone, confirm: "Close time rules included by default, check box if you want to omit.", form: {Exclude: :checkbox} do |ids, inputs|
