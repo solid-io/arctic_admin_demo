@@ -36,6 +36,12 @@ ActiveAdmin.register Schedule do
     end
   end
 
+  member_action :add_holiday_exlusions, method: :get do
+    schedule_id = params[:id]
+    resource.current_holidays.each {|holiday| Rule.create(schedule_id: schedule_id, rule_type: "exclusion", name: holiday[1], start_date: holiday[0])}
+    redirect_to admin_schedule_path(schedule_id)
+  end
+
  member_action :refresh_holiday_exlusions, method: :get do
     schedule_id = params[:id]
     resource.rules.exclusion.each do |rule|
@@ -43,12 +49,6 @@ ActiveAdmin.register Schedule do
           rule.destroy
       end
     end
-    resource.current_holidays.each {|holiday| Rule.create(schedule_id: schedule_id, rule_type: "exclusion", name: holiday[1], start_date: holiday[0])}
-    redirect_to admin_schedule_path(schedule_id)
-  end
-
-  member_action :add_holiday_exlusions, method: :get do
-    schedule_id = params[:id]
     resource.current_holidays.each {|holiday| Rule.create(schedule_id: schedule_id, rule_type: "exclusion", name: holiday[1], start_date: holiday[0])}
     redirect_to admin_schedule_path(schedule_id)
   end
