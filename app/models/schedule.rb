@@ -139,6 +139,18 @@ class Schedule < ApplicationRecord
     handle_current_day_time_rejections(scheduled_events)
   end
 
+  def add_holidays(schedule)
+    schedule.current_holidays.each {|holiday| schedule.rules.create(rule_type: "exclusion", name: holiday[1], start_date: holiday[0])}
+  end
+
+  def remove_holidays(schedule)
+    schedule.rules.exclusion.each do |rule|
+      if Schedule::NATIONAL_HOLIDAYS.has_key?(rule.start_date.to_s) && Schedule::NATIONAL_HOLIDAYS.invert.has_key?(rule.name) && rule.end_date.nil? && rule.rule_hour_start.blank? && rule.rule_hour_end.blank?
+          rule.destroy
+      end
+    end
+  end
+
   def current_holidays
     Schedule::NATIONAL_HOLIDAYS.select { |key, value| key.to_date.between?(Date.today, rules.inclusion.pluck(:end_date).max) }
   end

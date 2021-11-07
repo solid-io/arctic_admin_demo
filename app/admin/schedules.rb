@@ -36,31 +36,65 @@ ActiveAdmin.register Schedule do
     end
   end
 
-  member_action :add_holiday_exlusions, method: :get do
-    schedule_id = params[:id]
-    resource.current_holidays.each {|holiday| Rule.create(schedule_id: schedule_id, rule_type: "exclusion", name: holiday[1], start_date: holiday[0])}
-    redirect_to admin_schedule_path(schedule_id)
+  batch_action :activate do |ids|
+    batch_action_collection.find(ids).each do |schedule|
+      schedule.active = true
+      schedule.save
+    end
+    redirect_to collection_path, alert: "The schedules have been activated."
   end
 
- member_action :refresh_holiday_exlusions, method: :get do
-    schedule_id = params[:id]
-    resource.rules.exclusion.each do |rule|
-      if Schedule::NATIONAL_HOLIDAYS.has_key?(rule.start_date.to_s) && Schedule::NATIONAL_HOLIDAYS.invert.has_key?(rule.name) && rule.end_date.nil? && rule.rule_hour_start.blank? && rule.rule_hour_end.blank?
-          rule.destroy
+  batch_action :inactivate do |ids|
+    batch_action_collection.find(ids).each do |schedule|
+      schedule.active = false
+      schedule.save
+    end
+    redirect_to collection_path, alert: "The schedules have been inactivated."
+  end
+
+  batch_action :clone, confirm: "Do you want to include close times?", form: {no: :checkbox} do |ids, inputs|
+    batch_action_collection.find(ids).each do |schedule|
+      @schedule = schedule.dup
+      @schedule.name = "UPDATE ME..."
+      @schedule.active = false
+      @schedule.save
+      if inputs["no"] == "on"
+        @schedule.rules << schedule.rules.inclusion.map(&:dup)
+      else
+        @schedule.rules << schedule.rules.map(&:dup)
       end
     end
-    resource.current_holidays.each {|holiday| Rule.create(schedule_id: schedule_id, rule_type: "exclusion", name: holiday[1], start_date: holiday[0])}
-    redirect_to admin_schedule_path(schedule_id)
+    redirect_to collection_path, alert: "The schedules have been cloned."
+  end
+
+  batch_action :add_holidays do |ids|
+    batch_action_collection.find(ids).each do |schedule|
+      schedule.add_holidays(schedule)
+    end
+    redirect_to collection_path, alert: "The schedules have had holidays added."
+  end
+
+  batch_action :remove_holidays do |ids|
+    batch_action_collection.find(ids).each do |schedule|
+      schedule.remove_holidays(schedule)
+    end
+    redirect_to collection_path, alert: "The schedules have had holidays removed."
+  end
+
+  member_action :add_holiday_exlusions, method: :get do
+    resource.add_holidays(resource)
+    redirect_to admin_schedule_path(params[:id])
+  end
+
+  member_action :refresh_holiday_exlusions, method: :get do
+    resource.remove_holidays(resource)
+    resource.add_holidays(resource)
+    redirect_to admin_schedule_path(params[:id])
   end
 
   member_action :remove_holiday_exlusions, method: :get do
-    schedule_id = params[:id]
-    resource.rules.exclusion.each do |rule|
-      if Schedule::NATIONAL_HOLIDAYS.has_key?(rule.start_date.to_s) && Schedule::NATIONAL_HOLIDAYS.invert.has_key?(rule.name) && rule.end_date.nil? && rule.rule_hour_start.blank? && rule.rule_hour_end.blank?
-          rule.destroy
-      end
-    end
-    redirect_to admin_schedule_path(schedule_id)
+    resource.remove_holidays(resource)
+    redirect_to admin_schedule_path(params[:id])
   end
 
   member_action :save, method: :post do
