@@ -37,3 +37,7 @@ en:
   date:
     formats:
       long: "%m/%d/%Y"
+  formtastic:
+    placeholders:
+      admin_user:
+        # email: "you@yours.com"
