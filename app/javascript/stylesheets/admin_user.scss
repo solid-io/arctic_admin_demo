@@ -1,0 +1,183 @@
+// .file {
+//   opacity: 0;
+//   width: 0.1px;
+//   height: 0.1px;
+//   position: absolute;
+// }
+
+// #user_avatar {
+//   a {
+//     color: transparent;
+//     position: relative;
+//     width: 60px;
+//     height: 60px;
+//     display: inline-block;
+
+//     &:before {
+//       @include icon("\f007");
+
+//       display: inline;
+//       visibility: visible;
+//       cursor: pointer;
+//       position: absolute;
+//       top: 0;
+//       right: 0;
+//       color: $text-color;
+//       padding: 15px 0;
+//       text-align: center;
+//       width: 50px;
+//       font-size: 20px;
+//     }
+
+//     @media screen and (min-width: $sm-width) {
+//       width: 60px;
+//       height: 60px;
+
+//       &:before {
+//         // padding: 20px 0;
+//         width: 60px;
+//       }
+//     }
+//   }
+// }
+
+// input[type="file" i] {
+//   display: none;
+// }
+
+// .file {
+//   // display: none;
+//   opacity: 0;
+//   width: 0.1px;
+//   height: 0.1px;
+//   position: absolute;
+// }
+
+// .attachment {
+//   // display: block;
+//   // position: relative;
+//   width: 60px;
+//   height: 60px;
+//   border-radius: 50%;
+//   box-shadow: 0 4px 7px rgba(0, 0, 0, 0.4);
+//   // display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   color: #fff;
+//   font-weight: bold;
+//   cursor: pointer;
+//   transition: transform 0.2s ease-out;
+// }
+
+// #admin_user_avatar {
+//   // font: 900 normal normal 14px/1 "Font Awesome 5 Free", "Font Awesome 5 Pro";
+//   // content: "\f007";
+//   display: block;
+//   position: relative;
+//   // content: icon("\f007");
+//   // color: red;
+//   width: 60px;
+//   height: 60px;
+//   border-radius: 50%;
+//   // background: linear-gradient(40deg, #ff6ec4, #7873f5);
+//   // background: "\f007";
+//   box-shadow: 0 4px 7px rgba(0, 0, 0, 0.4);
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   color: #fff;
+//   font-weight: bold;
+//   cursor: pointer;
+//   transition: transform 0.2s ease-out;
+
+//   &:after {
+//     @include icon("\f007");
+//   }
+
+//   //   display: inline;
+//   //   visibility: visible;
+//   //   cursor: pointer;
+//   //   position: absolute;
+//   //   top: 0;
+//   //   right: 0;
+//   //   color: $text-color;
+//   //   padding: 15px 0;
+//   //   text-align: center;
+//   //   width: 50px;
+//   //   font-size: 20px;
+//   // }
+
+//   //   #user_avatar a:before {
+//   //     font-size: inherit;
+//   //     text-rendering: auto;
+//   //     -webkit-font-smoothing: antialiased;
+//   //     -moz-osx-font-smoothing: grayscale;
+//   //     font: 900 normal normal 14px/1 "Font Awesome 5 Free", "Font Awesome 5 Pro";
+//   //     content: "\f007";
+//   //     display: inline;
+//   //     visibility: visible;
+//   //     cursor: pointer;
+//   //     position: absolute;
+//   //     top: 0;
+//   //     right: 0;
+//   //     color: #5a5a5a;
+//   //     padding: 15px 0;
+//   //     text-align: center;
+//   //     width: 50px;
+//   //     font-size: 20px;
+//   // }
+// }
+
+// .button-image:hover::after {
+//   content: "\f196";
+//   font: normal normal normal 100px/1 FontAwesome;
+//   color: #778899;
+//   padding: 10%;
+//   right: 10%;
+//   position: relative;
+// }
+
+// .active-storage-button {
+//   display: none;
+// }
+
+// .active-storage-button {
+//   a {
+//     color: transparent;
+//     position: relative;
+//     width: 60px;
+//     height: 60px;
+//     display: inline-block;
+
+//     &:before {
+//       @include icon("\f007");
+
+//       display: inline;
+//       visibility: visible;
+//       cursor: pointer;
+//       position: absolute;
+//       top: 0;
+//       right: 0;
+//       color: $text-color;
+//       padding: 15px 0;
+//       text-align: center;
+//       width: 50px;
+//       font-size: 20px;
+//     }
+
+//     @media screen and (min-width: $sm-width) {
+//       width: 60px;
+//       height: 60px;
+
+//       &:before {
+//         // padding: 20px 0;
+//         width: 60px;
+//       }
+//     }
+//   }
+// }
+
+// .button-image:hover::after {
+//   color: #5a5a5a;
+//   cursor: pointer;
+// }
