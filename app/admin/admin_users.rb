@@ -3,6 +3,12 @@ ActiveAdmin.register AdminUser do
 
   permit_params :email, :password, :password_confirmation, :time_zone, :avatar
 
+  controller do
+    def scoped_collection
+      AdminUser.includes(avatar_attachment: :blob)
+    end
+  end
+
   member_action :delete_avatar, method: :get do
     resource.avatar.purge
     redirect_to admin_admin_user_path(params[:id]), notice: "Your avatar has been removed."
