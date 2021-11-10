@@ -13,7 +13,7 @@ ActiveAdmin.register_page "Dashboard" do
   REPORTS = %w[AdminUsers Companies Locations Schedules]
 
   content do
-    panel "Welcome to System ADD_USER_NAME | #{current_admin_user.email}" do
+    panel "Welcome back, #{current_admin_user.email}!" do
       para "Welcome to..."
     end
 

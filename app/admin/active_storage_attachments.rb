@@ -5,6 +5,12 @@ ActiveAdmin.register ActiveStorageAttachment do
   config.remove_action_item(:new)
   actions :index, :show
 
+  # controller do
+  #   def scoped_collection
+  #     ActiveStorageAttachment.includes(:active_storage_blobs, :active_storage_variant_records)
+  #   end
+  # end
+
   index do
     column :id
     column :name
