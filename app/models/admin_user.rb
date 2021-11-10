@@ -1,5 +1,8 @@
 class AdminUser < ApplicationRecord
   has_one_attached :avatar, dependent: :destroy
+  has_many :companies, through: :admin_user_companies
+  has_many :admin_user_companies, dependent: :destroy
+  accepts_nested_attributes_for :admin_user_companies, allow_destroy: true
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable, :validatable
   devise :database_authenticatable,
