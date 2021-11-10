@@ -1,7 +1,8 @@
 ActiveAdmin.register AdminUser do
   menu parent: "Administration"
 
-  permit_params :email, :password, :password_confirmation, :time_zone, :avatar
+  permit_params :email, :password, :password_confirmation, :time_zone, :avatar,
+                admin_user_companies_attributes: [:id, :admin_user_id, :company_id, :_destroy]
 
   controller do
     def scoped_collection
@@ -45,21 +46,33 @@ ActiveAdmin.register AdminUser do
   end
 
   form do |f|
-    f.inputs do
-      f.input :avatar, as: :attachment,
-              input_html: { accept: 'image/png,image/gif,image/jpeg' },
-              hint: 'Maximum size of 3MB. JPG, GIF, PNG.',
-              image: f.object.avatar.attached? ? url_for(f.object.avatar.variant(resize_to_limit: [60, 60]).processed) : ""
-      if admin_user.avatar.attached?
-        div style: "margin-left: 430px; margin-bottom: 10px;" do
-          link_to "Remove Avatar", delete_avatar_admin_admin_user_path
+    tabs do
+      tab 'Details'do
+        f.inputs do
+          f.input :avatar, as: :attachment,
+                  input_html: { accept: 'image/png,image/gif,image/jpeg' },
+                  hint: 'Maximum size of 3MB. JPG, GIF, PNG.',
+                  image: f.object.avatar.attached? ? url_for(f.object.avatar.variant(resize_to_limit: [60, 60]).processed) : ""
+          if admin_user.avatar.attached?
+            div style: "margin-left: 430px; margin-bottom: 10px;" do
+              link_to "Remove Avatar", delete_avatar_admin_admin_user_path
+            end
+          end
+          f.input :email
+          f.input :password
+          f.input :password_confirmation
+          f.input :time_zone, as: :select,
+                  collection: ActiveSupport::TimeZone.us_zones.map(&:name)
         end
       end
-      f.input :email
-      f.input :password
-      f.input :password_confirmation
-      f.input :time_zone, as: :select,
-              collection: ActiveSupport::TimeZone.us_zones.map(&:name)
+      tab 'Companies' do
+        f.inputs do
+          f.has_many :admin_user_companies, heading: false, allow_destroy: true do |c|
+            c.input :company_id, as: :select,
+                    collection: Company.all
+          end
+        end
+      end
     end
     f.actions
   end
