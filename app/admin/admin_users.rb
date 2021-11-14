@@ -30,6 +30,9 @@ ActiveAdmin.register AdminUser do
     column :current_sign_in_at
     column :sign_in_count
     column :time_zone
+    column("Locked Out") { |user| icon("fas", true ? "lock" : "lock-open") }
+    column("Locked In") { |user| icon("fas", false ? "lock" : "lock-open") }
+    column("Locked In") { |user| icon("fas", true ? "user" : "lock-open") }
     column :created_at
     actions
   end
@@ -40,8 +43,18 @@ ActiveAdmin.register AdminUser do
       row :email
       row :time_zone
       row :sign_in_count
+      list_row(admin_user.companies.present? && admin_user.companies.count > 1 ? "Companies" : "Company") {|admin_user| admin_user.companies.map(&:name)}
+      list_row(:locations) {|admin_user| admin_user.locations.map(&:name) }
       row :created_at
       row :updated_at
+
+    end
+    table_for admin_user.companies do
+      column(:company) {|company| link_to company.name, [ :admin, company ]}
+    end
+    table_for admin_user.locations do
+      column(:location) {|location| link_to location.name, [ :admin, location ]}
+      column(:address) {|location| location.address_display }
     end
   end
 
@@ -55,7 +68,12 @@ ActiveAdmin.register AdminUser do
                   image: f.object.avatar.attached? ? url_for(f.object.avatar.variant(resize_to_limit: [60, 60]).processed) : ""
           if admin_user.avatar.attached?
             div style: "margin-left: 430px; margin-bottom: 10px;" do
-              link_to "Remove Avatar", delete_avatar_admin_admin_user_path
+              span do
+                icon("fas", "user")
+              end
+              span do
+                link_to "Remove Avatar", delete_avatar_admin_admin_user_path
+              end
             end
           end
           f.input :email
