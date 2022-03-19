@@ -5,6 +5,7 @@ class Schedule < ApplicationRecord
   accepts_nested_attributes_for :rules, allow_destroy: true
 
   after_initialize :set_defaults
+  after_commit :send_update_notifications
 
   validates :capacity, :name, :time_zone, :beginning_of_week, presence: true
   validates :capacity, numericality: { greater_than: 0 }
@@ -274,6 +275,9 @@ class Schedule < ApplicationRecord
     "2030-12-25" => "Christmas Day",
   }.freeze
 
+  def send_update_notifications
+    ScheduleMailer.update.deliver_now
+  end
   private
 
   def set_defaults
