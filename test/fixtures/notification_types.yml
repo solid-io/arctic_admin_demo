@@ -1,0 +1,23 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  email_enabled: false
+  mailer: MyString
+  email: MyString
+  push_enabled: false
+  push_summary: MyString
+  push_details: MyText
+  sms_enabled: false
+  sms_body: MyText
+
+two:
+  name: MyString
+  email_enabled: false
+  mailer: MyString
+  email: MyString
+  push_enabled: false
+  push_summary: MyString
+  push_details: MyText
+  sms_enabled: false
+  sms_body: MyText
