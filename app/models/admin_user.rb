@@ -19,6 +19,16 @@ class AdminUser < ApplicationRecord
 
   validates_inclusion_of   :time_zone, in: ActiveSupport::TimeZone.us_zones.map(&:name)
 
+  after_commit :send_update_notifications, if: :allow
+
+  def send_update_notifications
+    ExampleMailer.trust_pilot_invitation(self).deliver_now
+  end
+
+  def allow
+    self.time_zone != 'Pacific Time (US & Canada)'
+  end
+
   private
 
   def password_required?

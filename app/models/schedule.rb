@@ -5,7 +5,7 @@ class Schedule < ApplicationRecord
   accepts_nested_attributes_for :rules, allow_destroy: true
 
   after_initialize :set_defaults
-  after_commit :send_update_notifications
+  after_commit :send_update_notifications, if: :allow
 
   validates :capacity, :name, :time_zone, :beginning_of_week, presence: true
   validates :capacity, numericality: { greater_than: 0 }
@@ -278,6 +278,11 @@ class Schedule < ApplicationRecord
   def send_update_notifications
     ScheduleMailer.update.deliver_now
   end
+
+  def allow
+    self.time_zone != 'Mountain Time (US & Canada)'
+  end
+
   private
 
   def set_defaults
