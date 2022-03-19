@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_10_195541) do
+ActiveRecord::Schema.define(version: 2022_03_19_065648) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -106,6 +106,20 @@ ActiveRecord::Schema.define(version: 2021_11_10_195541) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["company_id"], name: "index_locations_on_company_id"
+  end
+
+  create_table "notification_types", force: :cascade do |t|
+    t.string "name"
+    t.boolean "email_enabled", default: true
+    t.string "mailer"
+    t.string "email"
+    t.boolean "push_enabled", default: true
+    t.string "push_summary"
+    t.text "push_details"
+    t.boolean "sms_enabled", default: false
+    t.text "sms_body"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "rules", force: :cascade do |t|
