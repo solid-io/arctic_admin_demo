@@ -1,0 +1,13 @@
+<% context.instance_eval do
+    resource.emails.map{ |el| "#{el[0].split(" ")[0]} #{el[1]}" }.each do |item|
+      columns do
+        column do
+          item.split(" ")[0]
+        end
+        column do
+          item.split(" ")[1]
+        end
+      end
+    end
+  end
+%>

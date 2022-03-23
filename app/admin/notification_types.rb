@@ -55,7 +55,7 @@ ActiveAdmin.register NotificationType do
   end
 
   form do |f|
-  f.semantic_errors *f.object.errors.keys
+  f.semantic_errors *f.object.errors.attribute_names
    tabs do
       tab 'Notification Details'do
         f.inputs do
@@ -88,6 +88,13 @@ ActiveAdmin.register NotificationType do
       end
     end
     f.actions
+  end
+
+  sidebar :help, only: :edit do
+    div do
+      h5 'Need help? Email us at help@example.com'
+      render partial: 'sidebar', locals:{context: self}
+    end
   end
 
   show do
