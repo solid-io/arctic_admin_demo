@@ -2,7 +2,8 @@ ActiveAdmin.register AdminUser do
   menu parent: "Administration"
 
   permit_params :email, :password, :password_confirmation, :time_zone, :avatar,
-                admin_user_companies_attributes: [:id, :admin_user_id, :company_id, :_destroy]
+                admin_user_companies_attributes: [:id, :admin_user_id, :company_id, :_destroy],
+                admin_user_help_preferences_attributes: [:id, :controller_name, :enabled, :_destroy]
 
   controller do
     def scoped_collection
@@ -88,6 +89,32 @@ ActiveAdmin.register AdminUser do
           f.has_many :admin_user_companies, heading: false, allow_destroy: true do |c|
             c.input :company_id, as: :select,
                     collection: Company.all
+          end
+        end
+      end
+      # tab 'Preferences' do
+      #   f.inputs do
+      #     f.has_many :admin_user_help_preferences, heading: false, allow_destroy: true do |hp|
+      #       hp.input :controller_name
+      #       hp.input :enabled
+      #     end
+      #   end
+      # end
+      tab 'Preferences' do
+        tabs do
+          tab 'Help' do
+            f.inputs do
+              f.has_many :admin_user_help_preferences, heading: false, allow_destroy: true do |hp|
+                hp.input :controller_name
+                hp.input :enabled
+              end
+            end
+          end
+          tab 'Notification' do
+
+          end
+          tab 'Device' do
+
           end
         end
       end
