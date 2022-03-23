@@ -52,7 +52,8 @@
             tab 'Help' do
               f.inputs do
                 f.has_many :admin_user_help_preferences, heading: false, allow_destroy: true do |hp|
-                  hp.input :controller_name
+                  hp.input :controller_name,
+                           input_html: { disabled: !hp.object.new_record? }
                   hp.input :enabled
                 end
               end
