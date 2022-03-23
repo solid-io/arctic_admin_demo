@@ -28,6 +28,11 @@ ActiveAdmin.register NotificationType do
     redirect_to collection_path, alert: "The notification types sms enabled status has been toggled."
   end
 
+  member_action :disable_help, method: :get do
+    current_admin_user.admin_user_help_preferences.where(controller_name: controller_name).first.update!(enabled: false)
+    redirect_to send("edit_admin_#{controller_name.singularize}_path", params[:id]), notice: "You set the hide help admin user preference for #{controller_name.humanize}."
+  end
+
   filter :id
   filter :name, input_html: { autocomplete: 'off' }
   filter :email_enabled
@@ -90,10 +95,18 @@ ActiveAdmin.register NotificationType do
     f.actions
   end
 
-  sidebar :help, only: :edit do
+  sidebar :help, only: :edit, if: proc{ current_admin_user.admin_user_help_preferences.where(controller_name: controller_name).presence ? current_admin_user.admin_user_help_preferences.where(controller_name: controller_name).first.enabled : true }  do
     div do
       h5 'Need help? Email us at help@example.com'
       render partial: 'sidebar', locals:{context: self}
+      if current_admin_user.admin_user_help_preferences.where(controller_name: controller_name).presence
+        div do
+          link_to("Don't Show Again", send("disable_help_admin_#{controller_name.singularize}_path"), { class: "button" })
+        end
+        div do
+          sub "This admin user preference can be changed later."
+        end
+      end
     end
   end
 
