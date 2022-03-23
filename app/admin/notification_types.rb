@@ -101,10 +101,10 @@ ActiveAdmin.register NotificationType do
       render partial: 'sidebar', locals:{context: self}
       if current_admin_user.admin_user_help_preferences.where(controller_name: controller_name).presence
         div do
-          link_to("Don't Show Again", send("disable_help_admin_#{controller_name.singularize}_path"), { class: "button" })
+          link_to("Hide", send("disable_help_admin_#{controller_name.singularize}_path"), { class: "button" })
         end
         div do
-          sub "This admin user preference can be changed later."
+          sub "* Can be changed later."
         end
       end
     end
