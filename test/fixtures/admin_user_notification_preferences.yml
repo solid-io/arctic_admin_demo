@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  admin_user: one
+  email_enabled: false
+  push_enabled: false
+  sms_enabled: false
+
+two:
+  admin_user: two
+  email_enabled: false
+  push_enabled: false
+  sms_enabled: false

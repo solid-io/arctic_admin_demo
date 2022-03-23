@@ -4,8 +4,12 @@ class AdminUser < ApplicationRecord
   has_many :companies, through: :admin_user_companies
   has_many :locations, through: :companies
   has_many :admin_user_help_preferences, dependent: :destroy
+  has_one :admin_user_notification_preference, dependent: :destroy
+
   accepts_nested_attributes_for :admin_user_companies, allow_destroy: true
   accepts_nested_attributes_for :admin_user_help_preferences, allow_destroy: true
+  accepts_nested_attributes_for :admin_user_notification_preference
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable, :validatable
   devise :database_authenticatable,
@@ -22,6 +26,7 @@ class AdminUser < ApplicationRecord
   validates_inclusion_of   :time_zone, in: ActiveSupport::TimeZone.us_zones.map(&:name)
 
   after_commit :send_update_notifications, if: :allow
+  after_create :add_admin_user_notification_preferences
 
   def send_update_notifications
     ExampleMailer.trust_pilot_invitation(self).deliver_now
@@ -32,6 +37,10 @@ class AdminUser < ApplicationRecord
   end
 
   private
+
+  def add_admin_user_notification_preferences
+    AdminUserNotificationPreference.create!(admin_user_id: self.id) # DB Defaults = email_enabled: true, push_enabled: true, sns_enabled: false
+  end
 
   def password_required?
     !persisted?

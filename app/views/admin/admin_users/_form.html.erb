@@ -1,0 +1,66 @@
+<% context.instance_eval do
+    semantic_form_for [:admin, resource] do
+  		f.semantic_errors *f.object.errors.attribute_names
+      tabs do
+        tab 'Details'do
+          f.inputs do
+            f.input :avatar, as: :attachment,
+                    input_html: { accept: 'image/png,image/gif,image/jpeg' },
+                    hint: 'Maximum size of 3MB. JPG, GIF, PNG.',
+                    image: f.object.avatar.attached? ? url_for(f.object.avatar.variant(resize_to_limit: [60, 60]).processed) : ""
+            if admin_user.avatar.attached?
+              div style: "margin-left: 430px; margin-bottom: 10px;" do
+                span do
+                  icon("fas", "user")
+                end
+                span do
+                  link_to "Remove Avatar", delete_avatar_admin_admin_user_path
+                end
+              end
+            end
+            f.input :email
+            f.input :password
+            f.input :password_confirmation
+            f.input :time_zone, as: :select,
+                    collection: ActiveSupport::TimeZone.us_zones.map(&:name)
+          end
+        end
+        tab 'Companies' do
+          f.inputs do
+            f.has_many :admin_user_companies, heading: false, allow_destroy: true do |c|
+              c.input :company_id, as: :select,
+                      collection: Company.all
+            end
+          end
+        end
+        tab 'Preferences' do
+          tabs do
+            tab 'Notification' do
+              f.inputs do
+                f.semantic_fields_for :admin_user_notification_preference do |np|
+                  np.input :id, as: :hidden
+                  np.input :admin_user_id, as: :hidden
+                  np.input :email_enabled, as: :boolean
+                  np.input :push_enabled, as: :boolean
+                  np.input :sms_enabled, as: :boolean
+                end
+              end
+            end
+            tab 'Device' do
+
+            end
+            tab 'Help' do
+              f.inputs do
+                f.has_many :admin_user_help_preferences, heading: false, allow_destroy: true do |hp|
+                  hp.input :controller_name
+                  hp.input :enabled
+                end
+              end
+            end
+          end
+        end
+      end
+      f.actions
+	  end
+  end
+%>

@@ -9,9 +9,15 @@
 
   super_admin = AdminUser.create!(email: 'admin@example.com', password: password, password_confirmation: password, time_zone: 'Pacific Time (US & Canada)')
   super_admin.admin_user_companies.create!(company_id: company_epi.id)
+  AdminUserNotificationPreference.create!(admin_user_id: super_admin.id) # DB Defaults = email_enabled: true, push_enabled: true, sns_enabled: false
+  super_admin.admin_user_help_preferences.create!(admin_user_id: super_admin.id, controller_name: "notification_types") # DB Defaults = enabled: true
+  super_admin.admin_user_help_preferences.create!(admin_user_id: super_admin.id, controller_name: "schedules") # DB Defaults = enabled: true
+
 
   admin = AdminUser.create!(email: Rails.application.credentials[:admin_email], password: password, password_confirmation: password, time_zone: 'Pacific Time (US & Canada)')
-  admin.admin_user_companies.create!(company_id: company_epi.id)
+  admin.admin_user_companies.create!(company_id: company_hgs.id)
+  AdminUserNotificationPreference.create!(admin_user_id: admin.id) # DB Defaults = email_enabled: true, push_enabled: true, sns_enabled: false
+  admin.admin_user_help_preferences.create!(admin_user_id: admin.id, controller_name: "notification_types") # DB Defaults = enabled: true
 
   schedule = Schedule.create!(name: "Appointments", time_zone: "Mountain Time (US & Canada)",  beginning_of_week: "sunday", exclude_lunch_time: false, lunch_hour_start: "", lunch_hour_end: "")
   schedule.rules.create!(rule_type: "inclusion", name: "Open Time Rule MWF", frequency_units: "IceCube::MinutelyRule", frequency: 15, days_of_week: ["monday","wednesday","friday"], start_date: Date.today, end_date: Date.today + 90.days, rule_hour_start: "08:00", rule_hour_end: "20:00")

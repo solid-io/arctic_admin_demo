@@ -3,7 +3,8 @@ ActiveAdmin.register AdminUser do
 
   permit_params :email, :password, :password_confirmation, :time_zone, :avatar,
                 admin_user_companies_attributes: [:id, :admin_user_id, :company_id, :_destroy],
-                admin_user_help_preferences_attributes: [:id, :controller_name, :enabled, :_destroy]
+                admin_user_help_preferences_attributes: [:id, :controller_name, :enabled, :_destroy],
+                admin_user_notification_preference_attributes: [:id, :admin_user_id, :email_enabled, :push_enabled, :sms_enabled]
 
   controller do
     def scoped_collection
@@ -50,76 +51,21 @@ ActiveAdmin.register AdminUser do
       row :updated_at
 
     end
-    table_for admin_user.companies do
-      column(:company) {|company| link_to company.name, [ :admin, company ]}
+    if !admin_user.companies.empty?
+      table_for admin_user.companies do
+        column(:company) {|company| link_to company.name, [ :admin, company ]}
+      end
     end
-    table_for admin_user.locations do
-      column(:location) {|location| link_to location.name, [ :admin, location ]}
-      column(:address) {|location| location.address_display }
+    if !admin_user.locations.empty?
+      table_for admin_user.locations do
+        column(:location) {|location| link_to location.name, [ :admin, location ]}
+        column(:address) {|location| location.address_display }
+      end
     end
   end
 
   form do |f|
-    tabs do
-      tab 'Details'do
-        f.inputs do
-          f.input :avatar, as: :attachment,
-                  input_html: { accept: 'image/png,image/gif,image/jpeg' },
-                  hint: 'Maximum size of 3MB. JPG, GIF, PNG.',
-                  image: f.object.avatar.attached? ? url_for(f.object.avatar.variant(resize_to_limit: [60, 60]).processed) : ""
-          if admin_user.avatar.attached?
-            div style: "margin-left: 430px; margin-bottom: 10px;" do
-              span do
-                icon("fas", "user")
-              end
-              span do
-                link_to "Remove Avatar", delete_avatar_admin_admin_user_path
-              end
-            end
-          end
-          f.input :email
-          f.input :password
-          f.input :password_confirmation
-          f.input :time_zone, as: :select,
-                  collection: ActiveSupport::TimeZone.us_zones.map(&:name)
-        end
-      end
-      tab 'Companies' do
-        f.inputs do
-          f.has_many :admin_user_companies, heading: false, allow_destroy: true do |c|
-            c.input :company_id, as: :select,
-                    collection: Company.all
-          end
-        end
-      end
-      # tab 'Preferences' do
-      #   f.inputs do
-      #     f.has_many :admin_user_help_preferences, heading: false, allow_destroy: true do |hp|
-      #       hp.input :controller_name
-      #       hp.input :enabled
-      #     end
-      #   end
-      # end
-      tab 'Preferences' do
-        tabs do
-          tab 'Help' do
-            f.inputs do
-              f.has_many :admin_user_help_preferences, heading: false, allow_destroy: true do |hp|
-                hp.input :controller_name
-                hp.input :enabled
-              end
-            end
-          end
-          tab 'Notification' do
-
-          end
-          tab 'Device' do
-
-          end
-        end
-      end
-    end
-    f.actions
+    render 'form', context: self, f: f
   end
 
 end
