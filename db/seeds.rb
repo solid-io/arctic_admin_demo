@@ -12,6 +12,8 @@
   AdminUserNotificationPreference.create!(admin_user_id: super_admin.id) # DB Defaults = email_enabled: true, push_enabled: true, sns_enabled: false
   super_admin.admin_user_help_preferences.create!(admin_user_id: super_admin.id, controller_name: "notification_types") # DB Defaults = enabled: true
   super_admin.admin_user_help_preferences.create!(admin_user_id: super_admin.id, controller_name: "schedules") # DB Defaults = enabled: true
+  super_admin.addresses.create!(label: "Home", address_line_1: "123 Example Lane", address_line_2: "", city: "Dallas", state: "TX", zip: "75227", default: true)
+  super_admin.addresses.create!(label: "Home", address_line_1: "311 Home Brew Road", address_line_2: "", city: "Omaha", state: "NE", zip: "68104", default: false)
 
 
   admin = AdminUser.create!(email: Rails.application.credentials[:admin_email], password: password, password_confirmation: password, time_zone: 'Pacific Time (US & Canada)')
@@ -25,4 +27,17 @@
 
   NotificationType.create!(name: "ScheduleMailer.update", email_enabled: true, mailer: "ScheduleMailer", email: "update", push_enabled: true, push_summary: "The schedule has been updated.", push_details: "Updated Schedule", sms_enabled: false, sms_body: "")
   NotificationType.create!(name: "ExampleMailer.trust_pilot_invitation", email_enabled: true, mailer: "ExampleMailer", email: "trust_pilot_invitation", push_enabled: false, push_summary: "", push_details: "", sms_enabled: false, sms_body: "")
+
+  ContactTypeLabel.create!(contact_type: "email", label: "Office")
+  ContactTypeLabel.create!(contact_type: "email", label: "Home")
+  ContactTypeLabel.create!(contact_type: "phone", label: "Shipping")
+  ContactTypeLabel.create!(contact_type: "phone", label: "Office")
+  ContactTypeLabel.create!(contact_type: "phone", label: "Mobile")
+  ContactTypeLabel.create!(contact_type: "phone", label: "Home")
+  ContactTypeLabel.create!(contact_type: "phone", label: "Billing")
+  ContactTypeLabel.create!(contact_type: "address", label: "Shipping")
+  ContactTypeLabel.create!(contact_type: "address", label: "Office")
+  ContactTypeLabel.create!(contact_type: "address", label: "Home")
+  ContactTypeLabel.create!(contact_type: "address", label: "Billing")
+
 end
