@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_23_054023) do
+ActiveRecord::Schema.define(version: 2022_03_24_053004) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,6 +55,21 @@ ActiveRecord::Schema.define(version: 2022_03_23_054023) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "addresses", force: :cascade do |t|
+    t.string "addressable_type", null: false
+    t.bigint "addressable_id", null: false
+    t.string "label"
+    t.string "address_line_1"
+    t.string "address_line_2"
+    t.string "city"
+    t.string "state"
+    t.string "zip"
+    t.boolean "default", default: true
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["addressable_type", "addressable_id"], name: "index_addresses_on_addressable"
   end
 
   create_table "admin_user_companies", force: :cascade do |t|
@@ -112,6 +127,13 @@ ActiveRecord::Schema.define(version: 2022_03_23_054023) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "contact_type_labels", force: :cascade do |t|
+    t.string "contact_type"
+    t.string "label"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "locations", force: :cascade do |t|
     t.bigint "company_id", null: false
     t.string "name"
@@ -139,6 +161,17 @@ ActiveRecord::Schema.define(version: 2022_03_23_054023) do
     t.text "sms_body"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "phones", force: :cascade do |t|
+    t.string "phoneable_type", null: false
+    t.bigint "phoneable_id", null: false
+    t.string "label"
+    t.string "phone_number"
+    t.boolean "is_valid", default: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["phoneable_type", "phoneable_id"], name: "index_phones_on_phoneable"
   end
 
   create_table "rules", force: :cascade do |t|

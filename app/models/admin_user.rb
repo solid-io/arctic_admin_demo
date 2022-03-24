@@ -5,10 +5,14 @@ class AdminUser < ApplicationRecord
   has_many :locations, through: :companies
   has_many :admin_user_help_preferences, dependent: :destroy
   has_one :admin_user_notification_preference, dependent: :destroy
+  has_many :addresses, as: :addressable
+  has_many :phones, as: :phoneable
 
   accepts_nested_attributes_for :admin_user_companies, allow_destroy: true
   accepts_nested_attributes_for :admin_user_help_preferences, allow_destroy: true
   accepts_nested_attributes_for :admin_user_notification_preference
+  accepts_nested_attributes_for :addresses, allow_destroy: true
+  accepts_nested_attributes_for :phones, allow_destroy: true
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable, :validatable

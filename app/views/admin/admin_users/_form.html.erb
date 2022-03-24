@@ -60,6 +60,35 @@
             end
           end
         end
+        tab 'Contact' do
+          tabs do
+            tab 'Addresses' do
+              f.inputs do
+                f.has_many :addresses, heading: false, allow_destroy: true do |a|
+                  a.input :label, as: :select, collection: ContactTypeLabel.address_labels.map(&:label)
+                  a.input :address_line_1
+                  a.input :address_line_2
+                  a.input :city
+                  a.input :state, as: :select, collection: Utils::Constant::CONTIGUOUS_US_STATES
+                  a.input :zip
+                  a.input :default
+                end
+              end
+            end
+            tab 'Emails' do
+
+            end
+            tab 'Phones' do
+              f.inputs do
+                f.has_many :phones, heading: false, allow_destroy: true do |ph|
+                  ph.input :label, as: :select, collection: ContactTypeLabel.phone_labels.map(&:label)
+                  ph.input :phone_number
+                  ph.input :is_valid, input_html: { disabled: true }
+                end
+              end
+            end
+          end
+        end
       end
       f.actions
 	  end
