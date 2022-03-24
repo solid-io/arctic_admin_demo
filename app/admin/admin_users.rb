@@ -4,6 +4,8 @@ ActiveAdmin.register AdminUser do
   permit_params :email, :password, :password_confirmation, :time_zone, :avatar,
                 admin_user_companies_attributes: [:id, :admin_user_id, :company_id, :_destroy],
                 admin_user_help_preferences_attributes: [:id, :controller_name, :enabled, :_destroy],
+                addresses_attributes: [:id, :label, :address_line_1, :address_line_2, :city, :state, :zip, :default, :_destroy],
+                phones_attributes: [:id, :label, :phone_number, :is_valid, :_destroy],
                 admin_user_notification_preference_attributes: [:id, :admin_user_id, :email_enabled, :push_enabled, :sms_enabled]
 
   controller do
