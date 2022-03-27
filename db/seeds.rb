@@ -40,4 +40,8 @@
   ContactTypeLabel.create!(contact_type: "address", label: "Home")
   ContactTypeLabel.create!(contact_type: "address", label: "Billing")
 
+  5.times do
+    Company.create!(name: Faker::Company.name, description: Faker::Company.bs, subdomain: Faker::Internet.domain_name(subdomain: true, domain: "example"), domain: Faker::Internet.domain_name(domain: "example"))
+  end
+
 end

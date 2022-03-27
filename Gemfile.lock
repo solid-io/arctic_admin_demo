@@ -123,6 +123,8 @@ GEM
       responders
       warden (~> 1.2.3)
     erubi (1.10.0)
+    faker (2.19.0)
+      i18n (>= 1.6, < 2)
     ffi (1.15.5)
     font-awesome-sass (5.15.1)
       sassc (>= 1.11)
@@ -319,6 +321,7 @@ DEPENDENCIES
   capybara (>= 3.26)
   country_select
   devise
+  faker
   ice_cube
   image_processing (~> 1.2)
   listen (~> 3.3)
