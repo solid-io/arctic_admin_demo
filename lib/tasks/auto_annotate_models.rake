@@ -1,6 +1,9 @@
 # NOTE: only doing this in development as some production environments (Heroku)
 # NOTE: are sensitive to local FS writes, and besides -- it's just not proper
 # NOTE: to have a dev-mode tool do its thing in production.
+# NOTE: rake remove_annotation
+# NOTE: rake annotate_routes
+# NOTE: rake annotate_models
 if Rails.env.development?
   require 'annotate'
   task :set_annotation_options do
@@ -17,16 +20,16 @@ if Rails.env.development?
       'position_in_fixture'          => 'before',
       'position_in_factory'         => 'before',
       'position_in_serializer'      => 'before',
-      'show_foreign_keys'           => 'true',
-      'show_complete_foreign_keys'  => 'false',
+      'show_foreign_keys'           => 'false',
+      'show_complete_foreign_keys'  => 'true',
       'show_indexes'                => 'true',
       'simple_indexes'              => 'false',
       'model_dir'                   => 'app/models',
       'root_dir'                    => '',
       'include_version'             => 'false',
       'require'                     => '',
-      'exclude_tests'               => 'false',
-      'exclude_fixtures'             => 'false',
+      'exclude_tests'               => 'true',
+      'exclude_fixtures'             => 'true',
       'exclude_factories'           => 'true',
       'exclude_serializers'         => 'true',
       'exclude_scaffolds'           => 'true',
