@@ -4,7 +4,6 @@
 # NOTE: rake remove_annotation
 # NOTE: rake annotate_routes
 # NOTE: rake annotate_models
-
 if Rails.env.development?
   require 'annotate'
   task :set_annotation_options do

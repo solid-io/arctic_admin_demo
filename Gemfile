@@ -55,7 +55,6 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
-
 gem 'activeadmin'                             # https://activeadmin.info/documentation.html
 gem 'devise'                                  # https://github.com/heartcombo/devise
 gem 'arctic_admin'                            # https://github.com/cprodhomme/arctic_admin
