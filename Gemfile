@@ -41,6 +41,7 @@ group :development do
   gem 'listen', '~> 3.3'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+  gem 'annotate'                               # https://github.com/ctran/annotate_models
 end
 
 group :test do
@@ -54,13 +55,13 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
-gem 'activeadmin'
-gem 'devise'
-gem 'arctic_admin'
-gem 'ice_cube'
-gem 'simple_calendar'
-gem 'activeadmin_dynamic_fields'
-gem 'activeadmin_addons'
-gem 'country_select'
-gem 'telephone_number'
+gem 'activeadmin'                             # https://activeadmin.info/documentation.html
+gem 'devise'                                  # https://github.com/heartcombo/devise
+gem 'arctic_admin'                            # https://github.com/cprodhomme/arctic_admin
+gem 'ice_cube'                                # https://github.com/ice-cube-ruby/ice_cube
+gem 'simple_calendar'                         # https://github.com/excid3/simple_calendar
+gem 'activeadmin_dynamic_fields'               # https://github.com/blocknotes/activeadmin_dynamic_fields
+gem 'activeadmin_addons'                      # https://github.com/platanus/activeadmin_addons
+gem 'country_select'                          # https://github.com/countries/country_select
+gem 'telephone_number'                        # https://github.com/mobi/telephone_number
 

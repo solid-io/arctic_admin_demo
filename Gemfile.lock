@@ -81,6 +81,9 @@ GEM
       zeitwerk (~> 2.3)
     addressable (2.8.0)
       public_suffix (>= 2.0.2, < 5.0)
+    annotate (3.2.0)
+      activerecord (>= 3.2, < 8.0)
+      rake (>= 10.4, < 14.0)
     arbre (1.5.0)
       activesupport (>= 3.0.0, < 7.1)
       ruby2_keywords (>= 0.0.2, < 1.0)
@@ -309,6 +312,7 @@ DEPENDENCIES
   activeadmin
   activeadmin_addons
   activeadmin_dynamic_fields
+  annotate
   arctic_admin
   bootsnap (>= 1.4.4)
   byebug
