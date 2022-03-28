@@ -1,15 +1,8 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  phoneable: one
-  phoneable_type: Phoneable
-  label: MyString
-  phone_number: MyString
-  valid: false
-
-two:
-  phoneable: two
-  phoneable_type: Phoneable
-  label: MyString
-  phone_number: MyString
-  valid: false
+  phoneable: admin_user.id
+  phoneable_type: AdminUser
+  label: Mobile
+  phone_number: 2149238866
+  is_valid: true

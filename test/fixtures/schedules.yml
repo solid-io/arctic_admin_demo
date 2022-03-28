@@ -1,27 +1,27 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+# # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  scheduleable_id: 1
-  scheduleable_type: MyString
-  name: MyString
-  active: false
-  capacity: 1
-  user_types: MyString
-  exclude_lunch_time: false
-  lunch_hour_start: MyString
-  lunch_hour_end: MyString
-  beginning_of_week: MyString
-  time_zone: MyString
+# one:
+#   scheduleable_id: 1
+#   scheduleable_type: MyString
+#   name: MyString
+#   active: false
+#   capacity: 1
+#   user_types: MyString
+#   exclude_lunch_time: false
+#   lunch_hour_start: MyString
+#   lunch_hour_end: MyString
+#   beginning_of_week: MyString
+#   time_zone: MyString
 
-two:
-  scheduleable_id: 1
-  scheduleable_type: MyString
-  name: MyString
-  active: false
-  capacity: 1
-  user_types: MyString
-  exclude_lunch_time: false
-  lunch_hour_start: MyString
-  lunch_hour_end: MyString
-  beginning_of_week: MyString
-  time_zone: MyString
+# two:
+#   scheduleable_id: 1
+#   scheduleable_type: MyString
+#   name: MyString
+#   active: false
+#   capacity: 1
+#   user_types: MyString
+#   exclude_lunch_time: false
+#   lunch_hour_start: MyString
+#   lunch_hour_end: MyString
+#   beginning_of_week: MyString
+#   time_zone: MyString

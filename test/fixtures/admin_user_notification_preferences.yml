@@ -1,13 +1,7 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  admin_user: one
-  email_enabled: false
-  push_enabled: false
-  sms_enabled: false
-
-two:
-  admin_user: two
-  email_enabled: false
-  push_enabled: false
+admin_user_notification_preferences:
+  admin_user: admin_user
+  email_enabled: true
+  push_enabled: true
   sms_enabled: false

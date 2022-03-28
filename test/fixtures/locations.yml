@@ -1,23 +1,12 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  company: one
-  name: MyString
-  address_1: MyString
-  address_2: MyString
-  city: MyString
-  state: MyString
-  postal: MyString
-  country: MyString
-  time_zone: MyString
-
-two:
-  company: two
-  name: MyString
-  address_1: MyString
-  address_2: MyString
-  city: MyString
-  state: MyString
-  postal: MyString
-  country: MyString
-  time_zone: MyString
+  company: example_company
+  name: Example Location
+  address_1: 311 Location Lane
+  address_2: Building 2
+  city: Denver
+  state: CO
+  postal: 80031
+  country: US
+  time_zone: Pacific Time (US & Canada)

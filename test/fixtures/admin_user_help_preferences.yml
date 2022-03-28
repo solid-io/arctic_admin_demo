@@ -1,11 +1,11 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  admin_user: one
-  controller_name: MyString
-  enabled: false
+notification_types:
+  admin_user: admin_user
+  controller_name: notification_types
+  enabled: true
 
-two:
-  admin_user: two
-  controller_name: MyString
-  enabled: false
+schedules:
+  admin_user: admin_user
+  controller_name: schedules
+  enabled: true
