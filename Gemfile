@@ -31,6 +31,8 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'pry'
   gem 'faker'                                  # https://github.com/faker-ruby/faker
+  gem 'shoulda'                                # https://github.com/thoughtbot/shoulda
+  gem "simplecov", require: false              # https://github.com/simplecov-ruby/simplecov
 end
 
 group :development do

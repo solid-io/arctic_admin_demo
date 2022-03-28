@@ -1,21 +1,11 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  addressable: one
-  addressable_type: Addressable
-  label: MyString
-  address_line_1: MyString
-  address_line_2: MyString
-  city: MyString
-  state: MyString
-  zip: MyString
-
-two:
-  addressable: two
-  addressable_type: Addressable
-  label: MyString
-  address_line_1: MyString
-  address_line_2: MyString
-  city: MyString
-  state: MyString
-  zip: MyString
+home:
+  addressable: admin_user.id
+  addressable_type: AdminUser
+  label: Home
+  address_line_1: 123 Example Road
+  address_line_2: Suite 100
+  city: Dallas
+  state: TX
+  zip: 75223
