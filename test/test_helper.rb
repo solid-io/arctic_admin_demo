@@ -1,8 +1,4 @@
-ENV['RAILS_ENV'] ||= 'test'
-require_relative "../config/environment"
-require "rails/test_help"
 require "simplecov"
-
 SimpleCov.start do
   add_group "Active Admin", ["/app/admin/"]
   add_group "Model",        "app/model"
@@ -14,9 +10,12 @@ SimpleCov.start do
   add_group "Policies",     "app/policies"
   add_group "Views",        "app/views"
   add_group "Libraries",    "lib"
-
 end
+Rails.application.eager_load!
 
+ENV['RAILS_ENV'] ||= 'test'
+require_relative "../config/environment"
+require "rails/test_help"
 class ActiveSupport::TestCase
 
   # Run tests in parallel with specified workers

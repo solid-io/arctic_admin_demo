@@ -1,6 +1,328 @@
 {
   "Minitest": {
     "coverage": {
+      "/Users/jasonrossi/Sandbox/Playground/arctic_admin_demo/app/inputs/checkbox_image_input.rb": {
+        "lines": [
+          1,
+          null,
+          null,
+          null,
+          null,
+          1,
+          0,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          1,
+          0,
+          null,
+          null,
+          null
+        ]
+      },
+      "/Users/jasonrossi/Sandbox/Playground/arctic_admin_demo/app/inputs/attachment_input.rb": {
+        "lines": [
+          1,
+          1,
+          0,
+          null,
+          null,
+          1,
+          0,
+          0,
+          null,
+          null,
+          null,
+          null,
+          null,
+          1,
+          null,
+          1,
+          0,
+          null,
+          0,
+          null,
+          0,
+          null,
+          0,
+          null,
+          0,
+          null,
+          null,
+          0,
+          null,
+          null
+        ]
+      },
+      "/Users/jasonrossi/Sandbox/Playground/arctic_admin_demo/app/jobs/application_job.rb": {
+        "lines": [
+          1,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      "/Users/jasonrossi/Sandbox/Playground/arctic_admin_demo/app/mailers/schedule_mailer.rb": {
+        "lines": [
+          1,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          1,
+          0,
+          null,
+          0,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          1,
+          0,
+          null,
+          0,
+          null,
+          null
+        ]
+      },
+      "/Users/jasonrossi/Sandbox/Playground/arctic_admin_demo/app/mailers/application_mailer.rb": {
+        "lines": [
+          1,
+          1,
+          1,
+          1,
+          null
+        ]
+      },
+      "/Users/jasonrossi/Sandbox/Playground/arctic_admin_demo/app/mailers/example_mailer.rb": {
+        "lines": [
+          1,
+          null,
+          1,
+          0,
+          null,
+          null,
+          0,
+          0,
+          0,
+          0,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      "/Users/jasonrossi/Sandbox/Playground/arctic_admin_demo/app/models/admin_user_help_preference.rb": {
+        "lines": [
+          1,
+          1,
+          1,
+          null
+        ]
+      },
+      "/Users/jasonrossi/Sandbox/Playground/arctic_admin_demo/app/models/schedule_event.rb": {
+        "lines": [
+          1,
+          null
+        ]
+      },
+      "/Users/jasonrossi/Sandbox/Playground/arctic_admin_demo/app/models/admin_user_company.rb": {
+        "lines": [
+          1,
+          1,
+          1,
+          null
+        ]
+      },
+      "/Users/jasonrossi/Sandbox/Playground/arctic_admin_demo/app/models/admin_user_notification_preference.rb": {
+        "lines": [
+          1,
+          1,
+          null
+        ]
+      },
+      "/Users/jasonrossi/Sandbox/Playground/arctic_admin_demo/app/models/schedule_output.rb": {
+        "lines": [
+          1,
+          1,
+          null,
+          1,
+          null
+        ]
+      },
+      "/Users/jasonrossi/Sandbox/Playground/arctic_admin_demo/app/models/address.rb": {
+        "lines": [
+          1,
+          1,
+          1,
+          null
+        ]
+      },
+      "/Users/jasonrossi/Sandbox/Playground/arctic_admin_demo/app/models/phone.rb": {
+        "lines": [
+          1,
+          1,
+          null,
+          1,
+          null,
+          1,
+          0,
+          0,
+          null,
+          null
+        ]
+      },
+      "/Users/jasonrossi/Sandbox/Playground/arctic_admin_demo/app/channels/application_cable/connection.rb": {
+        "lines": [
+          1,
+          1,
+          null,
+          null
+        ]
+      },
+      "/Users/jasonrossi/Sandbox/Playground/arctic_admin_demo/app/channels/application_cable/channel.rb": {
+        "lines": [
+          1,
+          1,
+          null,
+          null
+        ]
+      },
+      "/Users/jasonrossi/Sandbox/Playground/arctic_admin_demo/lib/utils/constant.rb": {
+        "lines": [
+          1,
+          null,
+          1,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          66,
+          null
+        ]
+      },
+      "/Users/jasonrossi/Sandbox/Playground/arctic_admin_demo/lib/utils/phone.rb": {
+        "lines": [
+          1,
+          null,
+          1,
+          0,
+          null,
+          0,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          0,
+          null,
+          0,
+          null,
+          0,
+          null,
+          0,
+          null,
+          0,
+          null,
+          null,
+          null,
+          1,
+          0,
+          0,
+          0,
+          null,
+          0,
+          null,
+          0,
+          null,
+          0,
+          null,
+          null,
+          null,
+          1,
+          0,
+          null,
+          null,
+          null
+        ]
+      },
       "/Users/jasonrossi/Sandbox/Playground/arctic_admin_demo/test/mailers/example_mailer_test.rb": {
         "lines": [
           1,
@@ -211,7 +533,7 @@
         ]
       }
     },
-    "timestamp": 1648436622
+    "timestamp": 1648441477
   },
   "Unit Tests": {
     "coverage": {
