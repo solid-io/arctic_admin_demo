@@ -1,5 +1,6 @@
-class ExampleMailer < ApplicationMailer
+# frozen_string_literal: true
 
+class ExampleMailer < ApplicationMailer
   def trust_pilot_invitation(admin_user)
     @admin_user = admin_user || params[:admin_user]
     begin
@@ -10,5 +11,4 @@ class ExampleMailer < ApplicationMailer
       Rails.logger.error("Trust Pilot Invitation Error: #{e.message}")
     end
   end
-
 end

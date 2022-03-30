@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 require "test_helper"
 class CompanyTest < ActiveSupport::TestCase
   def setup
     @company = companies(:example_company)
   end
 
-  context 'associations' do
+  context "associations" do
     should have_one_attached(:logo)
     should have_many(:locations)
     should have_many(:admin_user_companies)

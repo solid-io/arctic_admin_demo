@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 ActiveAdmin.setup do |config|
   # == Site Title
   #
@@ -137,7 +139,7 @@ ActiveAdmin.setup do |config|
   # config.comments_menu = false
   #
   # You can customize the comment menu:
-  config.comments_menu = { parent: 'Administration' }
+  config.comments_menu = { parent: "Administration" }
 
   # == Batch Actions
   #
@@ -187,7 +189,7 @@ ActiveAdmin.setup do |config|
   # pages:
   #   config.meta_tags_for_logged_out_pages = {}
 
-  meta_tags_options = { viewport: 'width=device-width, initial-scale=1' }
+  meta_tags_options = { viewport: "width=device-width, initial-scale=1" }
   config.meta_tags = meta_tags_options
   config.meta_tags_for_logged_out_pages = meta_tags_options
 

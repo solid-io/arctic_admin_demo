@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AdminUser < ApplicationRecord
   has_one_attached :avatar, dependent: :destroy
   has_many :admin_user_companies, dependent: :destroy
@@ -27,7 +29,7 @@ class AdminUser < ApplicationRecord
   validates :password_confirmation, presence: true, if: :password_required?
   validates :password, length: { in: 8..128 }, if: :password_required?
 
-  validates_inclusion_of   :time_zone, in: ActiveSupport::TimeZone.us_zones.map(&:name)
+  validates_inclusion_of :time_zone, in: ActiveSupport::TimeZone.us_zones.map(&:name)
 
   after_commit :send_update_notifications, if: :allow
   after_create :add_admin_user_notification_preferences
@@ -37,16 +39,15 @@ class AdminUser < ApplicationRecord
   end
 
   def allow
-    self.time_zone != 'Pacific Time (US & Canada)'
+    self.time_zone != "Pacific Time (US & Canada)"
   end
 
   private
+    def add_admin_user_notification_preferences
+      AdminUserNotificationPreference.create!(admin_user_id: self.id) # DB Defaults = email_enabled: true, push_enabled: true, sns_enabled: false
+    end
 
-  def add_admin_user_notification_preferences
-    AdminUserNotificationPreference.create!(admin_user_id: self.id) # DB Defaults = email_enabled: true, push_enabled: true, sns_enabled: false
-  end
-
-  def password_required?
-    !persisted?
-  end
+    def password_required?
+      !persisted?
+    end
 end

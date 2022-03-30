@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Schedule < ApplicationRecord
   belongs_to :scheduleable, polymorphic: true, optional: true
   has_many :rules, dependent: :destroy
@@ -13,9 +15,9 @@ class Schedule < ApplicationRecord
   validate :lunch_hour_end_after_lunch_hour_start, if: :exclude_lunch_time?
   validates_inclusion_of :time_zone, in: ActiveSupport::TimeZone.us_zones.map(&:name)
 
-  scope :active, -> { where(active: true)}
+  scope :active, -> { where(active: true) }
 
-  def add_exception_rule_to_schedule(ice_cube_schedule, start_date, end_date=nil, start_time=nil, end_time=nil)
+  def add_exception_rule_to_schedule(ice_cube_schedule, start_date, end_date = nil, start_time = nil, end_time = nil)
     case
     when start_date.present? && end_date.nil? && start_time.nil? && end_time.nil? && start_date >= Date.today
       add_exception_times(ice_cube_schedule, start_date)
@@ -32,7 +34,7 @@ class Schedule < ApplicationRecord
     end
   end
 
-  def add_exception_times(ice_cube_schedule, date, start_time=nil, end_time=nil)
+  def add_exception_times(ice_cube_schedule, date, start_time = nil, end_time = nil)
     exceptions = ice_cube_schedule.occurrences_between(date.in_time_zone(time_zone).beginning_of_day, date.in_time_zone(time_zone).end_of_day)
     if !start_time.nil? && !end_time.nil?
       exceptions.each do |exception|
@@ -57,7 +59,7 @@ class Schedule < ApplicationRecord
     self.schedule_events.all.each do |event|
       appointment_count = event.medtest_location_appointments.count
       search_time = event.event_time
-      found_event = scheduled_events.find_index{|se| se.start_time == search_time}
+      found_event = scheduled_events.find_index { |se| se.start_time == search_time }
       if found_event
         scheduled_events[found_event].availability = scheduled_events[found_event].capacity - appointment_count
       end
@@ -66,11 +68,11 @@ class Schedule < ApplicationRecord
   end
 
   def handle_current_day_time_rejections(scheduled_events)
-    scheduled_events.delete_if {|event| event.start_time < Time.now.in_time_zone(time_zone).to_time}
+    scheduled_events.delete_if { |event| event.start_time < Time.now.in_time_zone(time_zone).to_time }
   end
 
   def handle_rule_minute_rejections(scheduled_events)
-    scheduled_events.delete_if {|event| event.start_time < included.rule_date_with_time(included.start_date, included.rule_hour_start)}
+    scheduled_events.delete_if { |event| event.start_time < included.rule_date_with_time(included.start_date, included.rule_hour_start) }
   end
 
   def get_scheduled_events
@@ -86,7 +88,7 @@ class Schedule < ApplicationRecord
       end
       # included_start_date = included.rule_date_with_time(included.start_date, included.rule_hour_start)
       included_end_date = included.rule_date_with_time(included.end_date, included.rule_hour_end)
-      ice_cube_schedule = IceCube::Schedule.new(included_start_date, :end_time => included_end_date)
+      ice_cube_schedule = IceCube::Schedule.new(included_start_date, end_time: included_end_date)
       ice_cube_schedule.add_recurrence_rule included.generate_rule_from_hash
       @schedules_array << ice_cube_schedule
     end
@@ -105,13 +107,13 @@ class Schedule < ApplicationRecord
     end
 
     # build scheduled events array of objects for simple calendar
-    scheduled_events =[]
+    scheduled_events = []
     rules.inclusion.each_with_index do |rule, index|
       rule_start_date = rule.start_date.in_time_zone(time_zone).beginning_of_day
-      #rule.rule_date_with_time(rule.start_date, rule.rule_hour_start)
+      # rule.rule_date_with_time(rule.start_date, rule.rule_hour_start)
       #
       rule_end_date = rule.end_date.in_time_zone(time_zone).end_of_day
-      #rule.rule_date_with_time(rule.end_date, rule.rule_hour_end)
+      # rule.rule_date_with_time(rule.end_date, rule.rule_hour_end)
 
       friendly_frequency_units ||= rule.friendly_frequency_units(rule.frequency_units)
       @schedules_array[index].occurrences_between(rule_start_date, rule_end_date).map do |date|
@@ -141,13 +143,13 @@ class Schedule < ApplicationRecord
   end
 
   def add_holidays(schedule)
-    schedule.current_holidays.each {|holiday| schedule.rules.create(rule_type: "exclusion", name: holiday[1], start_date: holiday[0])}
+    schedule.current_holidays.each { |holiday| schedule.rules.create(rule_type: "exclusion", name: holiday[1], start_date: holiday[0]) }
   end
 
   def remove_holidays(schedule)
     schedule.rules.exclusion.each do |rule|
       if Schedule::NATIONAL_HOLIDAYS.has_key?(rule.start_date.to_s) && Schedule::NATIONAL_HOLIDAYS.invert.has_key?(rule.name) && rule.end_date.nil? && rule.rule_hour_start.blank? && rule.rule_hour_end.blank?
-          rule.destroy
+        rule.destroy
       end
     end
   end
@@ -257,7 +259,7 @@ class Schedule < ApplicationRecord
     "2029-02-19" => "Washington's Birthday",
     "2029-05-28" => "Memorial Day",
     "2029-07-04" => "Independence Day",
-    "2029-09-03" =>"Labor Day",
+    "2029-09-03" => "Labor Day",
     "2029-10-08" => "Columbus Day",
     "2029-11-12" => "Veterans Day",
     "2029-11-22" => "Thanksgiving Day",
@@ -280,20 +282,19 @@ class Schedule < ApplicationRecord
   end
 
   def allow
-    self.time_zone != 'Mountain Time (US & Canada)'
+    self.time_zone != "Mountain Time (US & Canada)"
   end
 
   private
-
-  def set_defaults
-    self.capacity ||= 25
-    # self.time_zone ||= LocationProduct.find(self.scheduleable_id).location.time_zone if self.scheduleable_id.present?
-    self.beginning_of_week ||= "sunday"
-  end
-
-  def lunch_hour_end_after_lunch_hour_start
-    if self.lunch_hour_start.present? && self.lunch_hour_end.present? && self.lunch_hour_end&.to_time <= self.lunch_hour_start&.to_time
-      errors.add(:lunch_hour_end, "must be after start time")
+    def set_defaults
+      self.capacity ||= 25
+      # self.time_zone ||= LocationProduct.find(self.scheduleable_id).location.time_zone if self.scheduleable_id.present?
+      self.beginning_of_week ||= "sunday"
     end
-  end
+
+    def lunch_hour_end_after_lunch_hour_start
+      if self.lunch_hour_start.present? && self.lunch_hour_end.present? && self.lunch_hour_end&.to_time <= self.lunch_hour_start&.to_time
+        errors.add(:lunch_hour_end, "must be after start time")
+      end
+    end
 end

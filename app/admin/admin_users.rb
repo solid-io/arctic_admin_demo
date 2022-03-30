@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 ActiveAdmin.register AdminUser do
   menu parent: "Administration"
 
@@ -43,31 +45,29 @@ ActiveAdmin.register AdminUser do
 
   show do
     attributes_table do
-      row(:avatar) { |admin_user| admin_user.avatar.attached? ? image_tag(user_avatar(admin_user, 30), style: "border-radius: 50%;") : ""}
+      row(:avatar) { |admin_user| admin_user.avatar.attached? ? image_tag(user_avatar(admin_user, 30), style: "border-radius: 50%;") : "" }
       row :email
       row :time_zone
       row :sign_in_count
-      list_row(admin_user.companies.present? && admin_user.companies.count > 1 ? "Companies" : "Company") {|admin_user| admin_user.companies.map(&:name)}
-      list_row(:locations) {|admin_user| admin_user.locations.map(&:name) }
+      list_row(admin_user.companies.present? && admin_user.companies.count > 1 ? "Companies" : "Company") { |admin_user| admin_user.companies.map(&:name) }
+      list_row(:locations) { |admin_user| admin_user.locations.map(&:name) }
       row :created_at
       row :updated_at
-
     end
     if !admin_user.companies.empty?
       table_for admin_user.companies do
-        column(:company) {|company| link_to company.name, [ :admin, company ]}
+        column(:company) { |company| link_to company.name, [ :admin, company ] }
       end
     end
     if !admin_user.locations.empty?
       table_for admin_user.locations do
-        column(:location) {|location| link_to location.name, [ :admin, location ]}
-        column(:address) {|location| location.address_display }
+        column(:location) { |location| link_to location.name, [ :admin, location ] }
+        column(:address) { |location| location.address_display }
       end
     end
   end
 
   form do |f|
-    render 'form', context: self, f: f
+    render "form", context: self, f: f
   end
-
 end

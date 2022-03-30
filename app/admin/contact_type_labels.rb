@@ -1,5 +1,6 @@
-ActiveAdmin.register ContactTypeLabel do
+# frozen_string_literal: true
 
+ActiveAdmin.register ContactTypeLabel do
   menu label: "Contact Type Labels", parent: "Base Setup"
 
   permit_params :contact_type, :label
@@ -10,7 +11,7 @@ ActiveAdmin.register ContactTypeLabel do
   preserve_default_filters!
 
   form do |f|
-    f.semantic_errors *f.object.errors.attribute_names
+    f.semantic_errors(*f.object.errors.attribute_names)
     f.input :contact_type, as: :select, collection: ContactTypeLabel::CONTACT_TYPE_VALUES
     f.input :label
     actions
@@ -43,5 +44,4 @@ ActiveAdmin.register ContactTypeLabel do
     column :created_at
     column :updated_at
   end
-
 end

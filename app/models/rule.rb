@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Rule < ApplicationRecord
   belongs_to :schedule, touch: true
 
@@ -38,8 +40,8 @@ class Rule < ApplicationRecord
   # TODO-242: Validate frequency range for each frequency_unit - day can only be used with multiples of interval(7)
 
   default_scope { order(rule_type: :desc, start_date: :asc) }
-  scope :inclusion, -> { where(rule_type: "inclusion")}
-  scope :exclusion, -> { where(rule_type: "exclusion")}
+  scope :inclusion, -> { where(rule_type: "inclusion") }
+  scope :exclusion, -> { where(rule_type: "exclusion") }
 
   def inclusion?
     self.rule_type == "inclusion"
@@ -91,7 +93,7 @@ class Rule < ApplicationRecord
   end
 
   def convert_hours_of_day
-    splat_hour_array =  *(time_in_zone(self.rule_hour_start).hour...time_in_zone(self.rule_hour_end).hour)
+    splat_hour_array = *(time_in_zone(self.rule_hour_start).hour...time_in_zone(self.rule_hour_end).hour)
     if time_in_zone(self.rule_hour_end).hour == 23 && time_in_zone(self.rule_hour_end).min > 0
       splat_hour_array << time_in_zone(self.rule_hour_end).hour
     end
@@ -103,48 +105,46 @@ class Rule < ApplicationRecord
   end
 
   def convert_days
-    self.frequency_units_minute? ? {:validations => {:hour_of_day => convert_hours_of_day, :day => convert_days_of_week}} : {:validations => {:day => convert_days_of_week}}
+    self.frequency_units_minute? ? { validations: { hour_of_day: convert_hours_of_day, day: convert_days_of_week } } : { validations: { day: convert_days_of_week } }
   end
 
   def convert_frequency_units
-    {:rule_type => self.frequency_units}
+    { rule_type: self.frequency_units }
   end
 
   def convert_frequency
-    {:interval => self.frequency}
+    { interval: self.frequency }
   end
 
   private
-
-  def set_defaults
-    self.rule_type ||= "inclusion"
-    self.frequency_units ||= "IceCube::MinutelyRule"
-    self.frequency ||= 15 if inclusion?
-    self.start_date ||= Date.today
-  end
-
-  def set_defaults_exlusion
-    self.frequency_units = ""
-    self.frequency = nil
-    self.days_of_week = []
-  end
-
-  def no_exlusion_without_inclusion
-    if self.new_record? && !self.schedule.rules.inclusion.exists?
-      errors.add(:rule_type, "must have at least one 'Open times' rule")
+    def set_defaults
+      self.rule_type ||= "inclusion"
+      self.frequency_units ||= "IceCube::MinutelyRule"
+      self.frequency ||= 15 if inclusion?
+      self.start_date ||= Date.today
     end
-  end
 
-  def end_date_after_start_date
-    if self.end_date <= self.start_date
-      self.inclusion? ? errors.add(:end_date, "must be after start date") : errors.add(:end_date, "can be blank or must be after start date if selected")
+    def set_defaults_exlusion
+      self.frequency_units = ""
+      self.frequency = nil
+      self.days_of_week = []
     end
-  end
 
-  def rule_hour_end_after_rule_hour_start
-    if self.rule_hour_end <= self.rule_hour_start
-      errors.add(:rule_hour_end, "must be after start time")
+    def no_exlusion_without_inclusion
+      if self.new_record? && !self.schedule.rules.inclusion.exists?
+        errors.add(:rule_type, "must have at least one 'Open times' rule")
+      end
     end
-  end
 
+    def end_date_after_start_date
+      if self.end_date <= self.start_date
+        self.inclusion? ? errors.add(:end_date, "must be after start date") : errors.add(:end_date, "can be blank or must be after start date if selected")
+      end
+    end
+
+    def rule_hour_end_after_rule_hour_start
+      if self.rule_hour_end <= self.rule_hour_start
+        errors.add(:rule_hour_end, "must be after start time")
+      end
+    end
 end

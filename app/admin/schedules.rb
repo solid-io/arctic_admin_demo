@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 ActiveAdmin.register Schedule do
   menu parent: "Organization"
 
   # config.remove_action_item(:new)
 
   permit_params :active, :beginning_of_week, :capacity, :company_id, :exclude_lunch_time, :lunch_hour_start,
-                :lunch_hour_end, :name, :scheduleable_id, :scheduleable_type, :start_date, :time_zone, {:user_types => []},
-                rules_attributes: [:id, :name, :rule_type, :frequency_units, :frequency, {:days_of_week => []},
+                :lunch_hour_end, :name, :scheduleable_id, :scheduleable_type, :start_date, :time_zone, { user_types: [] },
+                rules_attributes: [:id, :name, :rule_type, :frequency_units, :frequency, { days_of_week: [] },
                                    :start_date, :end_date, :rule_hour_start, :rule_hour_end, :_destroy]
 
   controller do
@@ -29,7 +31,7 @@ ActiveAdmin.register Schedule do
     def load_events
       if params[:start_date]
         start_date = params[:start_date].to_date.beginning_of_month - params[:start_date].to_date.beginning_of_month.wday
-        @events ||= resource.get_scheduled_events.select { |item| item.start_date.to_date.between?(start_date.beginning_of_week, (start_date + 35.days).end_of_week )  }
+        @events ||= resource.get_scheduled_events.select { |item| item.start_date.to_date.between?(start_date.beginning_of_week, (start_date + 35.days).end_of_week)  }
       else
         @events ||= resource.get_scheduled_events
       end
@@ -44,7 +46,7 @@ ActiveAdmin.register Schedule do
     redirect_to collection_path, notice: "The schedules active status has been toggled."
   end
 
-  batch_action :clone, confirm: "Close time rules included by default, check box if you want to omit.", form: {Exclude: :checkbox} do |ids, inputs|
+  batch_action :clone, confirm: "Close time rules included by default, check box if you want to omit.", form: { Exclude: :checkbox } do |ids, inputs|
     batch_action_collection.find(ids).each do |schedule|
       @schedule = schedule.dup
       @schedule.name = "UPDATE ME..."
@@ -73,10 +75,10 @@ ActiveAdmin.register Schedule do
     redirect_to collection_path, notice: "The schedules have had holidays removed."
   end
 
-  batch_action :add_close_times, form: {"Start Date": :datepicker, "End Date": :datepicker, "Start Time": :text, "End Time": :text} do |ids, inputs|
+  batch_action :add_close_times, form: { "Start Date": :datepicker, "End Date": :datepicker, "Start Time": :text, "End Time": :text } do |ids, inputs|
     batch_action_collection.find(ids).each do |schedule|
       if inputs["Start Date"].present?
-        schedule.rules.create(rule_type: "exclusion", name: "Close Time Rule", start_date: inputs["Start Date"], end_date: inputs["End Date"].blank? ? nil : inputs["End Date"], rule_hour_start: inputs["Start Time"].blank? ? "" : Time.parse(inputs["Start Time"]).strftime("%H:%M"), rule_hour_end: inputs["End Time"].blank? ? "" : Time.parse(inputs["End Time"]).strftime("%H:%M") )
+        schedule.rules.create(rule_type: "exclusion", name: "Close Time Rule", start_date: inputs["Start Date"], end_date: inputs["End Date"].blank? ? nil : inputs["End Date"], rule_hour_start: inputs["Start Time"].blank? ? "" : Time.parse(inputs["Start Time"]).strftime("%H:%M"), rule_hour_end: inputs["End Time"].blank? ? "" : Time.parse(inputs["End Time"]).strftime("%H:%M"))
       end
     end
     if inputs["Start Date"].present?
@@ -113,7 +115,7 @@ ActiveAdmin.register Schedule do
   end
 
   filter :id
-  filter :name, input_html: { autocomplete: 'off' }
+  filter :name, input_html: { autocomplete: "off" }
   filter :active
   filter :capacity
   # filter :user_types, as: :select,
@@ -126,15 +128,15 @@ ActiveAdmin.register Schedule do
 
   # partials located in default location views/admin/schedules
   index do
-    render partial: 'index', locals:{context: self}
+    render partial: "index", locals: { context: self }
   end
 
   form partial: "form"
 
-  sidebar :help, only: :edit, if: proc{ current_admin_user.admin_user_help_preferences.where(controller_name: controller_name).presence ? current_admin_user.admin_user_help_preferences.where(controller_name: controller_name).first.enabled : true }  do
+  sidebar :help, only: :edit, if: proc { current_admin_user.admin_user_help_preferences.where(controller_name: controller_name).presence ? current_admin_user.admin_user_help_preferences.where(controller_name: controller_name).first.enabled : true }  do
     div do
-      h6 'Need help? Email us at help@example.com'
-      render partial: 'sidebar', locals:{context: self}
+      h6 "Need help? Email us at help@example.com"
+      render partial: "sidebar", locals: { context: self }
       if current_admin_user.admin_user_help_preferences.where(controller_name: controller_name).presence
         div do
           link_to("Hide", send("disable_help_admin_#{controller_name.singularize}_path"), { class: "button" })
@@ -147,7 +149,7 @@ ActiveAdmin.register Schedule do
   end
 
   show do
-    render partial: 'show', locals:{context: self}
+    render partial: "show", locals: { context: self }
   end
 
   csv do
@@ -163,10 +165,9 @@ ActiveAdmin.register Schedule do
     column(:lunch_hour_end) { |schedule| schedule.lunch_hour_end&.to_time&.strftime("%I:%M %P") }
     column :time_zone
     column(:beginning_of_week) { |schedule| schedule.beginning_of_week.titleize }
-    column(:rules) { |schedule| schedule.rules.map(&:name).join(', ') }
+    column(:rules) { |schedule| schedule.rules.map(&:name).join(", ") }
     column(:holidays) { |schedule| schedule.schedule_holiday_rule_exits? }
     column :created_at
     column :updated_at
   end
-
 end

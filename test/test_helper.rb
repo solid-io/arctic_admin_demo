@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "simplecov"
 SimpleCov.start do
   add_group "Active Admin", ["/app/admin/"]
@@ -13,11 +15,10 @@ SimpleCov.start do
 end
 Rails.application.eager_load!
 
-ENV['RAILS_ENV'] ||= 'test'
+ENV["RAILS_ENV"] ||= "test"
 require_relative "../config/environment"
 require "rails/test_help"
 class ActiveSupport::TestCase
-
   # Run tests in parallel with specified workers
   parallelize(workers: :number_of_processors)
 

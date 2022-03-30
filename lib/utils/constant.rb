@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Utils::Constant
   ALL_US_STATES = {
     "Alaska" => "AK",
@@ -67,5 +69,5 @@ class Utils::Constant
     "Armed Forces Pacific" => "AP"
   }
 
-  CONTIGUOUS_US_STATES = ALL_US_STATES.reject { |k,v| %w[AA AE AK AS AP FM GU HI MH MP PR PW VI].include? v }
+  CONTIGUOUS_US_STATES = ALL_US_STATES.reject { |k, v| %w[AA AE AK AS AP FM GU HI MH MP PR PW VI].include? v }
 end

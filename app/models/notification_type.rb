@@ -1,7 +1,8 @@
-class NotificationType < ApplicationRecord
+# frozen_string_literal: true
 
-  MAILERS = Dir['app/mailers/**/*.rb'].freeze
-  CLASSIFIED_MAILERS = MAILERS.map{|mailer| mailer.gsub('app/mailers/','').gsub('.rb','').classify}.reject{|r| r == "ApplicationMailer"}.sort.freeze
+class NotificationType < ApplicationRecord
+  MAILERS = Dir["app/mailers/**/*.rb"].freeze
+  CLASSIFIED_MAILERS = MAILERS.map { |mailer| mailer.gsub("app/mailers/", "").gsub(".rb", "").classify }.reject { |r| r == "ApplicationMailer" }.sort.freeze
 
   validates :name, uniqueness: true, presence: true
   validates :mailer, :email, presence: true, if: :email_enabled
@@ -12,7 +13,7 @@ class NotificationType < ApplicationRecord
   def emails
     emails = []
     CLASSIFIED_MAILERS.each do |mailer|
-      sorted_email_methods = mailer.constantize.instance_methods(false).map{|method| method.to_s}.reject(&:empty?).sort
+      sorted_email_methods = mailer.constantize.instance_methods(false).map { |method| method.to_s }.reject(&:empty?).sort
       sorted_email_methods.each do |email|
         emails << ["#{mailer} - #{email}", email]
       end
@@ -49,5 +50,4 @@ class NotificationType < ApplicationRecord
       errors.add(:email, "must match mailer '#{mailer}'")
     end
   end
-
 end
