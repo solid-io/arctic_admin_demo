@@ -41,7 +41,7 @@ class Utils::Phone
     when "national_number"
       result
     when "e164_number"
-      result = validated["valid"] == true ? validated["e164_number"] : validated["raw_input"]
+      validated["valid"] == true ? validated["e164_number"] : validated["raw_input"]
     else
       result
     end
