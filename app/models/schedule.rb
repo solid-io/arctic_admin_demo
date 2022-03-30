@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Schedule < ApplicationRecord
   belongs_to :scheduleable, polymorphic: true, optional: true
   has_many :rules, dependent: :destroy

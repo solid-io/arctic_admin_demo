@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 ActiveAdmin.register Schedule do
   menu parent: "Organization"
 

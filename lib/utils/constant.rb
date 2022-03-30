@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Utils::Constant
   ALL_US_STATES = {
     "Alaska" => "AK",

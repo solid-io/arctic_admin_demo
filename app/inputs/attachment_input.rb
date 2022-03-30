@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class AttachmentInput < Formtastic::Inputs::FileInput
   def image_html_options
     { class: "attachment", style: "border-radius: 50%; box-shadow: 0 4px 7px rgba(0, 0, 0, 0.4);" }.merge(options[:image_html] || {})

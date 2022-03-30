@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 ActiveAdmin.register NotificationType do
   menu label: "Notification Types", parent: ["Administration", "Notifications"]
 

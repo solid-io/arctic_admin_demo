@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 ActiveAdmin.register Location do
   menu parent: "Organization"
 

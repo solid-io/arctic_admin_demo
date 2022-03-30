@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 ActiveAdmin.register ContactTypeLabel do
   menu label: "Contact Type Labels", parent: "Base Setup"
 

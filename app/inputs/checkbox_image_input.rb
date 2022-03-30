@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class CheckboxImageInput < Formtastic::Inputs::CheckBoxesInput
   # include CloudinaryHelper
   # f.input :products, as: :checkbox_image, :collection => product_selection

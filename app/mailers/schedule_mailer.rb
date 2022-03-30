@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class ScheduleMailer < ApplicationMailer
   # before_action { @schedule, @user = params[:schedule], params[:current_user] }
 
