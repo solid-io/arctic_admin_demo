@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class NotificationType < ApplicationRecord
   MAILERS = Dir["app/mailers/**/*.rb"].freeze
   CLASSIFIED_MAILERS = MAILERS.map { |mailer| mailer.gsub("app/mailers/", "").gsub(".rb", "").classify }.reject { |r| r == "ApplicationMailer" }.sort.freeze

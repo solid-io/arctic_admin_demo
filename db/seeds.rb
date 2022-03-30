@@ -1,4 +1,5 @@
-# frozen_string_literal: true
+ # frozen_string_literal: true
+
  if Rails.env.development?
    password = Rails.application.credentials[:demo_password]
 

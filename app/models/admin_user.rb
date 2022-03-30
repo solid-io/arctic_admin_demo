@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class AdminUser < ApplicationRecord
   has_one_attached :avatar, dependent: :destroy
   has_many :admin_user_companies, dependent: :destroy

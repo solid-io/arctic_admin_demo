@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class Utils::Phone
   def self.validate(phone_number, validate_type = "slim")
     if TelephoneNumber.parse(sanitize(phone_number)).country.nil?

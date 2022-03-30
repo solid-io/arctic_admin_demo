@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class ContactTypeLabel < ApplicationRecord
   CONTACT_TYPE_VALUES = {
     "Address" => "address",

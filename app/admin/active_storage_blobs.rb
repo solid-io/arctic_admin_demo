@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 ActiveAdmin.register ActiveStorageBlob do
   menu label: "Blobs", parent: ["Administration", "Active Storage"]
 

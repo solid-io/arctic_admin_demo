@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 ActiveAdmin.register ActiveStorageAttachment do
   menu label: "Attachments", parent: ["Administration", "Active Storage"]
 

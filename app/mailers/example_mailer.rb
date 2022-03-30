@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class ExampleMailer < ApplicationMailer
   def trust_pilot_invitation(admin_user)
     @admin_user = admin_user || params[:admin_user]

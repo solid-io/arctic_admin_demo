@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 ActiveAdmin.register Company do
   menu parent: "Organization"
 

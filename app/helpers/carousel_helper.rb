@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module CarouselHelper
   def carousel_for(images)
     Carousel.new(self, images).html

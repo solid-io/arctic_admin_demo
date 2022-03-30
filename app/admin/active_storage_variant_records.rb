@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 ActiveAdmin.register ActiveStorageVariantRecord do
   menu label: "Variants", parent: ["Administration", "Active Storage"]
 
