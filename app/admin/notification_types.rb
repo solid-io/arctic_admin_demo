@@ -1,5 +1,4 @@
 ActiveAdmin.register NotificationType do
-
   menu label: "Notification Types", parent: ["Administration", "Notifications"]
 
   permit_params :name, :email_enabled, :mailer, :email, :push_enabled, :push_summary, :push_details, :sms_enabled, :sms_body
@@ -34,7 +33,7 @@ ActiveAdmin.register NotificationType do
   end
 
   filter :id
-  filter :name, input_html: { autocomplete: 'off' }
+  filter :name, input_html: { autocomplete: "off" }
   filter :email_enabled
   filter :mailer, as: :select,
         collection: proc { NotificationType.all.pluck(:mailer).uniq }
@@ -53,52 +52,52 @@ ActiveAdmin.register NotificationType do
     id_column
     column :name
     column :email_enabled
-    column(:mailer_and_email) { |notification_type| notification_type.mailer_email_present ? notification_type.preview.present? ? link_to(notification_type.mailer_emails_by_email,"#{request.base_url}/rails/mailers#{notification_type.mailer == "DeviseMailer" ? "/devise/mailer/" : "/"}#{notification_type.mailer.underscore}/#{notification_type.email}", {target: :_blank}) : notification_type.mailer_emails_by_email : "" }
+    column(:mailer_and_email) { |notification_type| notification_type.mailer_email_present ? notification_type.preview.present? ? link_to(notification_type.mailer_emails_by_email, "#{request.base_url}/rails/mailers#{notification_type.mailer == "DeviseMailer" ? "/devise/mailer/" : "/"}#{notification_type.mailer.underscore}/#{notification_type.email}", { target: :_blank }) : notification_type.mailer_emails_by_email : "" }
     column :push_enabled
     column :sms_enabled
     actions
   end
 
   form do |f|
-  f.semantic_errors *f.object.errors.attribute_names
-   tabs do
-      tab 'Notification Details'do
-        f.inputs do
-          f.input :name
-        end
-      end
-      tab 'Rails Mailers'do
-        f.inputs do
-          f.input :email_enabled
-          f.input :mailer, as: :select,
-                  collection: NotificationType::CLASSIFIED_MAILERS,
-                  allow_blank: true
-          f.input :email, as: :select,
-                  collection: f.object.emails,
-                  allow_blank: true
-        end
-      end
-      tab 'Mobile Push'do
-        f.inputs do
-          f.input :push_enabled
-          f.input :push_summary
-          f.input :push_details
-        end
-      end
-      tab 'SMS Text'do
-        f.inputs do
-          f.input :sms_enabled
-          f.input :sms_body
-        end
-      end
-    end
+    f.semantic_errors(*f.object.errors.attribute_names)
+    tabs do
+       tab "Notification Details" do
+         f.inputs do
+           f.input :name
+         end
+       end
+       tab "Rails Mailers" do
+         f.inputs do
+           f.input :email_enabled
+           f.input :mailer, as: :select,
+                   collection: NotificationType::CLASSIFIED_MAILERS,
+                   allow_blank: true
+           f.input :email, as: :select,
+                   collection: f.object.emails,
+                   allow_blank: true
+         end
+       end
+       tab "Mobile Push" do
+         f.inputs do
+           f.input :push_enabled
+           f.input :push_summary
+           f.input :push_details
+         end
+       end
+       tab "SMS Text" do
+         f.inputs do
+           f.input :sms_enabled
+           f.input :sms_body
+         end
+       end
+     end
     f.actions
   end
 
-  sidebar :help, only: :edit, if: proc{ current_admin_user.admin_user_help_preferences.where(controller_name: controller_name).presence ? current_admin_user.admin_user_help_preferences.where(controller_name: controller_name).first.enabled : true }  do
+  sidebar :help, only: :edit, if: proc { current_admin_user.admin_user_help_preferences.where(controller_name: controller_name).presence ? current_admin_user.admin_user_help_preferences.where(controller_name: controller_name).first.enabled : true }  do
     div do
-      h5 'Need help? Email us at help@example.com'
-      render partial: 'sidebar', locals:{context: self}
+      h5 "Need help? Email us at help@example.com"
+      render partial: "sidebar", locals: { context: self }
       if current_admin_user.admin_user_help_preferences.where(controller_name: controller_name).presence
         div do
           link_to("Hide", send("disable_help_admin_#{controller_name.singularize}_path"), { class: "button" })
@@ -141,5 +140,4 @@ ActiveAdmin.register NotificationType do
     column :created_at
     column :updated_at
   end
-
 end

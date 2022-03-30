@@ -15,7 +15,7 @@ ActiveAdmin.register ActiveStorageBlob do
     column :byte_size
     column :checksum
     column(:attachments) { |row| link_to "Attachment ##{ActiveStorageAttachment.find_by_blob_id(row.id).id}", admin_active_storage_attachment_path(ActiveStorageAttachment.find_by_blob_id(row.id).id) }
-    list_column(:variants) { |row| ActiveStorageVariantRecord.where(blob_id: row.id).map{ |variant|link_to "Variant ##{variant.id}", admin_active_storage_variant_record_path(ActiveStorageVariantRecord.find(variant.id)) } }
+    list_column(:variants) { |row| ActiveStorageVariantRecord.where(blob_id: row.id).map { |variant|link_to "Variant ##{variant.id}", admin_active_storage_variant_record_path(ActiveStorageVariantRecord.find(variant.id)) } }
     column :created_at
     actions
   end
@@ -31,7 +31,7 @@ ActiveAdmin.register ActiveStorageBlob do
       row :byte_size
       row :checksum
       row(:attachments) { |row| link_to "Attachment ##{ActiveStorageAttachment.find_by_blob_id(row.id).id}", admin_active_storage_attachment_path(ActiveStorageAttachment.find_by_blob_id(row.id).id) }
-      list_row(:variants) { |row| ActiveStorageVariantRecord.where(blob_id: row.id).map{ |variant|link_to "Variant ##{variant.id}", admin_active_storage_variant_record_path(ActiveStorageVariantRecord.find(variant.id)) } }
+      list_row(:variants) { |row| ActiveStorageVariantRecord.where(blob_id: row.id).map { |variant|link_to "Variant ##{variant.id}", admin_active_storage_variant_record_path(ActiveStorageVariantRecord.find(variant.id)) } }
       row :created_at
     end
   end

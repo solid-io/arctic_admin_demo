@@ -14,12 +14,11 @@ class ContactTypeLabel < ApplicationRecord
   before_save :humanize_label, if: :label_changed
 
   private
+    def humanize_label
+      self.label = self.label.humanize
+    end
 
-  def humanize_label
-    self.label = self.label.humanize
-  end
-
-  def label_changed
-    self.label_changed?
-  end
+    def label_changed
+      self.label_changed?
+    end
 end

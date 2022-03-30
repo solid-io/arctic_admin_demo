@@ -1,5 +1,4 @@
 class Utils::Phone
-
   def self.validate(phone_number, validate_type = "slim")
     if TelephoneNumber.parse(sanitize(phone_number)).country.nil?
       phone_object = TelephoneNumber.parse(sanitize(phone_number), :PR).valid? ? TelephoneNumber.parse(sanitize(phone_number), :PR) : TelephoneNumber.parse(sanitize(phone_number), :US)
@@ -21,9 +20,9 @@ class Utils::Phone
     when "all"
       result
     when "slim"
-      result.reject { |k,v| %w[country_code location timezone].include? k }
+      result.reject { |k, v| %w[country_code location timezone].include? k }
     when "api"
-      result.reject { |k,v| %w[national_number international_number country_id country_code location timezone e164_number].include? k }
+      result.reject { |k, v| %w[national_number international_number country_id country_code location timezone e164_number].include? k }
     else
       result
     end
@@ -31,7 +30,7 @@ class Utils::Phone
 
   def self.normalize(phone_number, normalize_type = "national_number")
     validated = validate(phone_number)
-    if ["US","PR"].include? validated["country_id"]
+    if ["US", "PR"].include? validated["country_id"]
       result = validated["valid"] == true ? validated["national_number"] : validated["raw_input"]
     else
       result = validated["valid"] == true ? validated["international_number"] : validated["raw_input"]
@@ -49,5 +48,4 @@ class Utils::Phone
   def self.sanitize(phone_number)
     TelephoneNumber.sanitize(phone_number)
   end
-
 end

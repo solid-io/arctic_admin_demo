@@ -39,18 +39,18 @@ ActiveAdmin.register Company do
       row :updated_at
     end
     table_for company.locations do
-      column(:location) {|location| link_to location.name, [ :admin, location ]}
-      column(:address) {|location| location.address_display }
+      column(:location) { |location| link_to location.name, [ :admin, location ] }
+      column(:address) { |location| location.address_display }
     end
   end
 
   form do |f|
     tabs do
-      tab 'Details'do
+      tab "Details" do
         f.inputs do
           f.input :logo, as: :attachment,
-                  input_html: { accept: 'image/png,image/gif,image/jpeg' },
-                  hint: 'Maximum size of 3MB. JPG, GIF, PNG.',
+                  input_html: { accept: "image/png,image/gif,image/jpeg" },
+                  hint: "Maximum size of 3MB. JPG, GIF, PNG.",
                   image: f.object.logo.attached? ? url_for(f.object.logo.variant(resize_to_limit: [60, 60]).processed) : ""
           if resource.logo.attached?
             div style: "margin-left: 430px; margin-bottom: 10px;" do
@@ -63,11 +63,11 @@ ActiveAdmin.register Company do
           f.input :domain
         end
       end
-      tab 'Locations' do
+      tab "Locations" do
         f.inputs do
           f.has_many :locations, heading: false, allow_destroy: true do |l|
             if !l.object.new_record?
-              l.input :id, input_html: {disabled: true}
+              l.input :id, input_html: { disabled: true }
             end
             l.input :company_id, selected: f.object.id, as: :hidden
             l.input :name
@@ -84,5 +84,4 @@ ActiveAdmin.register Company do
     end
     f.actions
   end
-
 end

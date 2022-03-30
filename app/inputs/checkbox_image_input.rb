@@ -7,12 +7,11 @@ class CheckboxImageInput < Formtastic::Inputs::CheckBoxesInput
     template.content_tag(
     :label,
     img_tag(choice) + checkbox_input(choice) + choice_label(choice),
-    label_html_options.merge(:for => choice_input_dom_id(choice), :class =>
-    "input_with_thumbnail"))
+    label_html_options.merge(for: choice_input_dom_id(choice), class:     "input_with_thumbnail"))
  end
 
   def img_tag(choice)
-    cl_image_tag(Product.find(choice[1]).photos[0].path, :width=>30,
-    :crop=>"scale")
+    cl_image_tag(Product.find(choice[1]).photos[0].path, width: 30,
+    crop: "scale")
   end
 end
