@@ -35,7 +35,7 @@ class AdminUser < ApplicationRecord
   after_create :add_admin_user_notification_preferences
 
   def send_update_notifications
-    ExampleMailer.trust_pilot_invitation(self).deliver_now
+    # ExampleMailer.trust_pilot_invitation(self).deliver_now
   end
 
   def allow
