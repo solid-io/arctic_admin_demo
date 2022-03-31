@@ -27,8 +27,13 @@ jobs:
         with:
           ruby-version: 3.0.0
           
+      - name: Install dependencies
+        run: |
+          bundle install --jobs 4 --retry 3
+          
       - name: Lint Ruby files
-        run: rails rubocop --parallel
+        run: |
+          rails rubocop --parallel
 
       - name: Run tests
         env:
