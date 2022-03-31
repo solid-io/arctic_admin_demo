@@ -28,7 +28,7 @@ jobs:
           ruby-version: 3.0.0
           
       - name: Lint Ruby files
-        run: bin/rubocop --parallel
+        run: rails rubocop --parallel
 
       - name: Run tests
         env:
