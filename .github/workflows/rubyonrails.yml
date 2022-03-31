@@ -40,4 +40,6 @@ jobs:
           RAILS_ENV: test
           RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
           PG_USER: postgres
-        run: rails test
+        run: |
+          bin/rails db:test:prepare
+          bin/rails test
