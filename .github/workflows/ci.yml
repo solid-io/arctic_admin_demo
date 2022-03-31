@@ -58,7 +58,7 @@ jobs:
           bin/rails test
           
       - name: Send custom JSON data to Slack workflow
-        uses: actions/slackapi/slack-github-action@v1.18.0
+        uses: slackapi/slack-github-action@v1.18.0
         with:
           payload: |
             {
