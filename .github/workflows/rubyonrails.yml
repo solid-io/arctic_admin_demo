@@ -30,22 +30,16 @@ jobs:
       - name: Restore cached dependencies
         uses: actions/cache@v1
         with:
-          path: vendor/bundle
-          key: ${{ runner.os }}-gem-${{ hashFiles('**/Gemfile.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-gem-
+          key: arctic_admin_demo-{{ checksum "Gemfile.lock" }}
           
       - name: Bundle install dependencies
         run: |
-          bundle install --path vendor/bundle --jobs 4 --retry 3
+          bundle install --jobs 4 --retry 3
           
       - name: Cache dependencies
         uses: actions/cache@v1
         with:
-          path: vendor/bundle
-          key: ${{ runner.os }}-gem-${{ hashFiles('**/Gemfile.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-gem-
+          key: arctic_admin_demo-{{ checksum "Gemfile.lock" }}
           
       - name: Lint Ruby files
         run: rubocop
