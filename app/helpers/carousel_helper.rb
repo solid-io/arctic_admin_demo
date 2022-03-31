@@ -62,7 +62,7 @@ module CarouselHelper
         }
 
         icon = content_tag(:i, "", class: "glyphicon glyphicon-chevron-#{direction}")
-        control = link_to(icon, "##{uid}", options)
+        control = link_to(icon, "##{uid}", options) # rubocop:disable Lint/UselessAssignment
       end
   end
 end
