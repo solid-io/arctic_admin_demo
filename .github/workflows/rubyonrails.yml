@@ -31,15 +31,18 @@ jobs:
         uses: actions/cache@v1
         with:
           key: arctic_admin_demo-{{ checksum "Gemfile.lock" }}
+          path: vendor/bundle
           
       - name: Bundle install dependencies
         run: |
+          bundle config path vendor/bundle
           bundle install --jobs 4 --retry 3
           
       - name: Cache dependencies
         uses: actions/cache@v1
         with:
           key: arctic_admin_demo-{{ checksum "Gemfile.lock" }}
+          path: vendor/bundle
           
       - name: Lint Ruby files
         run: rubocop
