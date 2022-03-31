@@ -16,6 +16,15 @@ ActiveAdmin.register AdminUser do
     end
   end
 
+  action_item :send_email_example, only: :edit do
+    link_to("Send Example Email", send("send_email_example_admin_#{controller_name.singularize}_path"), { class: "button" })
+  end
+
+  member_action :send_email_example, mehtod: :get do
+    ExampleMailer.trust_pilot_invitation(resource).deliver_later
+    redirect_to send("edit_admin_#{controller_name.singularize}_path", params[:id]), notice: "Your email has been sent.."
+  end
+
   member_action :delete_avatar, method: :get do
     resource.avatar.purge
     redirect_to admin_admin_user_path(params[:id]), notice: "Your avatar has been removed."
