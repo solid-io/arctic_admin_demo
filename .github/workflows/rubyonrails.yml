@@ -20,14 +20,16 @@ jobs:
         ports: ["5432:5432"]
 
     steps:
-      - uses: actions/checkout@master
+      - name: Checkout master
+        uses: actions/checkout@master
 
       - name: Setup Ruby 3.0.0
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: 3.0.0
           
-      - uses: actions/cache@v2
+      - name: Cache dependencies
+        uses: actions/cache@v2
         with:
           path: vendor/bundle
           key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
