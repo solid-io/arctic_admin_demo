@@ -5,6 +5,7 @@ class AdminDeviceToken < ApplicationRecord
   # https://www.youtube.com/watch?v=T6vdjAvGr1Q
   belongs_to :admin_user
 
+  default_scope { order(created_at: :desc) }
   scope :webpush, -> { where(token_type: "webpush", enabled: true) }
 
   def publish

@@ -25,6 +25,15 @@ ActiveAdmin.register AdminUser do
     redirect_to send("edit_admin_#{controller_name.singularize}_path", params[:id]), notice: "Your email has been sent.."
   end
 
+  action_item :send_push, only: :edit  do
+    link_to("Send push", send("send_push_admin_#{controller_name.singularize}_path"), { class: "button" })
+  end
+
+  member_action :send_push, mehtod: :get  do
+    UserNotification.with(user: resource).deliver(resource)
+    redirect_to send("edit_admin_#{controller_name.singularize}_path", params[:id]), notice: "Your webpush notification has been sent.."
+  end
+
   member_action :delete_avatar, method: :get do
     resource.avatar.purge
     redirect_to admin_admin_user_path(params[:id]), notice: "Your avatar has been removed."

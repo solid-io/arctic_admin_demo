@@ -8,12 +8,3 @@ one:
   endpoint: MyString
   expiration: MyString
   p256dh: MyString
-
-two:
-  admin_user: two
-  enabled: false
-  token_type: MyString
-  token: MyString
-  endpoint: MyString
-  expiration: MyString
-  p256dh: MyString

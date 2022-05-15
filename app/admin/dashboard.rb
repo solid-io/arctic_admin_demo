@@ -23,11 +23,11 @@ ActiveAdmin.register_page "Dashboard" do
     panel "Welcome back, #{current_admin_user.email}!" do
         para "Welcome to..."
 
-        text_node link_to("Enable Push", "#", { id: "utility-navigation-enable-push", class: "button", onclick: "myFunction(#{Base64.urlsafe_decode64(Rails.application.credentials.webpush[:public_key]).bytes})" })
+        text_node link_to("Enable Push", "#", { id: "utility-navigation-enable-push", class: "button", onclick: "myFunction(#{Base64.urlsafe_decode64(Rails.application.credentials.webpush[:public_key]).bytes}, #{current_admin_user.id})" })
 
         script do
-            raw <<~JS
-          function myFunction(publicKey) {
+          raw <<~JS
+          function myFunction(publicKey, admin_user_id) {
 
             let permission = Notification.permission;
             let client = {}
@@ -135,7 +135,8 @@ ActiveAdmin.register_page "Dashboard" do
                 "browserMajorVersion": browserMajorVersion,
                 "objappVersion": objappVersion,
                 "browserAgent": browserAgent,
-                "osName": osName
+                "osName": osName,
+                "admin_user_id": admin_user_id
               };
             }
 
@@ -177,8 +178,8 @@ ActiveAdmin.register_page "Dashboard" do
 
             requestPermission();
           }
-            JS
-          end
+          JS
+        end
       end
 
 
