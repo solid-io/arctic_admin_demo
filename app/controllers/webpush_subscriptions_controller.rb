@@ -29,7 +29,6 @@ class WebpushSubscriptionsController < ApplicationController
 
 
   private
-
     def webpush_subscriptions_params
       params.require(:webpush_subscriptions).permit(subscription: [:endpoint, :expirationTime, keys: [:p256dh, :auth]], client: [:browserName, :browserVersion, :browserMajorVersion, :objappVersion, :browserAgent, :osName, :admin_user_id])
     end
@@ -41,5 +40,4 @@ class WebpushSubscriptionsController < ApplicationController
     def client
       webpush_subscriptions_params[:client]
     end
-
 end
