@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_24_053004) do
+ActiveRecord::Schema.define(version: 2022_05_13_162041) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -71,6 +71,23 @@ ActiveRecord::Schema.define(version: 2022_03_24_053004) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["addressable_type", "addressable_id"], name: "index_addresses_on_addressable"
+  end
+
+  create_table "admin_device_tokens", force: :cascade do |t|
+    t.bigint "admin_user_id", null: false
+    t.boolean "enabled"
+    t.string "token_type"
+    t.string "token"
+    t.string "endpoint"
+    t.string "expiration"
+    t.string "p256dh"
+    t.string "os"
+    t.string "browser"
+    t.string "user_agent"
+    t.text "message"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["admin_user_id"], name: "index_admin_device_tokens_on_admin_user_id"
   end
 
   create_table "admin_user_companies", force: :cascade do |t|
@@ -164,6 +181,18 @@ ActiveRecord::Schema.define(version: 2022_03_24_053004) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "notifications", force: :cascade do |t|
+    t.string "recipient_type", null: false
+    t.bigint "recipient_id", null: false
+    t.string "type", null: false
+    t.jsonb "params"
+    t.datetime "read_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["read_at"], name: "index_notifications_on_read_at"
+    t.index ["recipient_type", "recipient_id"], name: "index_notifications_on_recipient"
+  end
+
   create_table "phones", force: :cascade do |t|
     t.string "phoneable_type", null: false
     t.bigint "phoneable_id", null: false
@@ -219,6 +248,7 @@ ActiveRecord::Schema.define(version: 2022_03_24_053004) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "admin_device_tokens", "admin_users"
   add_foreign_key "admin_user_companies", "admin_users"
   add_foreign_key "admin_user_companies", "companies"
   add_foreign_key "admin_user_help_preferences", "admin_users"

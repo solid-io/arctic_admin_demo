@@ -9,6 +9,8 @@ class AdminUser < ApplicationRecord
   has_one :admin_user_notification_preference, dependent: :destroy
   has_many :addresses, as: :addressable
   has_many :phones, as: :phoneable
+  has_many :admin_device_tokens, dependent: :destroy
+  has_many :notifications, as: :recipient, dependent: :destroy
 
   accepts_nested_attributes_for :admin_user_companies, allow_destroy: true
   accepts_nested_attributes_for :admin_user_help_preferences, allow_destroy: true
