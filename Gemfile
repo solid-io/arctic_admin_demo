@@ -73,3 +73,5 @@ gem "activeadmin_dynamic_fields"               # https://github.com/blocknotes/a
 gem "activeadmin_addons"                      # https://github.com/platanus/activeadmin_addons
 gem "country_select"                          # https://github.com/countries/country_select
 gem "telephone_number"                        # https://github.com/mobi/telephone_number
+gem "webpush"                                 # https://github.com/zaru/webpush
+gem "noticed"                                 # https://github.com/excid3/noticed

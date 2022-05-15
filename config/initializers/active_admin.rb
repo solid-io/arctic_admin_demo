@@ -11,14 +11,14 @@ ActiveAdmin.setup do |config|
   # Set the link url for the title. For example, to take
   # users to your main site. Defaults to no link.
   #
-  # config.site_title_link = "/"
+  config.site_title_link = "/admin/dashboard"
 
   # Set an optional image to be displayed for the header
   # instead of a string (overrides :site_title)
   #
   # Note: Aim for an image that's 21px high so it fits in the header.
   #
-  # config.site_title_image = "logo.png"
+  config.site_title_image = "android-chrome-192x192.png"
 
   # == Default Namespace
   #
@@ -174,7 +174,7 @@ ActiveAdmin.setup do |config|
 
   # == Setting a Favicon
   #
-  # config.favicon = 'favicon.ico'
+  config.favicon = "favicon.ico"
 
   # == Meta Tags
   #
@@ -236,12 +236,33 @@ ActiveAdmin.setup do |config|
   #
   # To change the default utility navigation to show a link to your website & a logout btn
   #
-  #   config.namespace :admin do |admin|
-  #     admin.build_menu :utility_navigation do |menu|
-  #       menu.add label: "My Great Website", url: "http://www.mygreatwebsite.com", html_options: { target: :blank }
-  #       admin.add_logout_button_to_menu menu
-  #     end
+  # config.namespace :admin do |admin|
+  #   admin.build_menu :utility_navigation do |menu|
+  #     # menu.add label: "Enable Push", url: "#", html_options: { onclick: 'alert("Please no!")' }
+  #     # menu.add label: -> { "Current Location: #{current_active_admin_user.current_location_text}" },
+  #     #   id: "admin_user_current_location",
+  #     #   url: -> { edit_current_location_admin_admin_user_path(current_active_admin_user) },
+  #     #   html_options: { :remote => true, "data-toggle" => "modal", "data-target" => "#modal-window" },
+  #     #   if: -> { current_active_admin_user? }
+  #     # menu.add label:        "Enable Push", # proc{ display_name current_active_admin_user }, # email of the current admin user logged
+  #     #          url:          "http://www.mygreatwebsite.com", # proc { my_other_awesome_path },
+  #     #          html_options: { class: "button", target: :blank },
+  #     #          id:           "utility-navigation-enable-push",
+  #     #          if:           proc{ current_active_admin_user? }
+  #     # menu.add link_to "Example", "http://www.mygreatwebsite.com", target: :blank
+  #     admin.add_current_user_to_menu menu
+  #     admin.add_logout_button_to_menu menu
   #   end
+  # end
+  # config.namespace :admin do |admin|
+  #   admin.build_menu :utility_navigation do |menu|
+  #     menu.add label: "Dropdown", html_options: { class: "button" } do |submenu|
+  #       submenu.add label: "ActiveAdmin.info", url: "http://www.activeadmin.info", html_options: { target: :blank }
+  #       admin.add_current_user_to_menu  submenu
+  #       admin.add_logout_button_to_menu submenu
+  #     end #submenu
+  #   end
+  # end
   #
   # If you wanted to add a static menu item to the default menu provided:
   #

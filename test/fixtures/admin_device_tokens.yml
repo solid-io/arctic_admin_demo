@@ -1,0 +1,10 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  admin_user: one
+  enabled: false
+  token_type: MyString
+  token: MyString
+  endpoint: MyString
+  expiration: MyString
+  p256dh: MyString
