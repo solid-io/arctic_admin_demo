@@ -18,6 +18,7 @@ class WebpushSubscriptionsController < ApplicationController
       os: client[:osName],
       browser: client[:browserName],
       user_agent: client[:browserAgent],
+      ip_address: client[:ip_address],
     })
     if @device_token.persisted?
       # render json: @device_token
@@ -30,7 +31,7 @@ class WebpushSubscriptionsController < ApplicationController
 
   private
     def webpush_subscriptions_params
-      params.require(:webpush_subscriptions).permit(subscription: [:endpoint, :expirationTime, keys: [:p256dh, :auth]], client: [:browserName, :browserVersion, :browserMajorVersion, :objappVersion, :browserAgent, :osName, :admin_user_id])
+      params.require(:webpush_subscriptions).permit(subscription: [:endpoint, :expirationTime, keys: [:p256dh, :auth]], client: [:browserName, :browserVersion, :browserMajorVersion, :objappVersion, :browserAgent, :osName, :admin_user_id, :ip_address])
     end
 
     def subscription

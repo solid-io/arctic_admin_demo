@@ -13,6 +13,7 @@ class CreateAdminDeviceTokens < ActiveRecord::Migration[6.1]
       t.string :os
       t.string :browser
       t.string :user_agent
+      t.string :ip_address
       t.text :message
 
       t.timestamps

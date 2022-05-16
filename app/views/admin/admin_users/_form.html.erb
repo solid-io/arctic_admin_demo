@@ -52,6 +52,7 @@
                 column("Token Type") { |token| token.token_type.humanize }
                 column("Operating System") { |token| token.os }
                 column :browser
+                column :ip_address
                 column :created_at
                 column :updated_at
               end

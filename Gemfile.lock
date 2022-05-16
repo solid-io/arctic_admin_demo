@@ -129,6 +129,27 @@ GEM
     erubi (1.10.0)
     faker (2.20.0)
       i18n (>= 1.8.11, < 2)
+    faraday (1.8.0)
+      faraday-em_http (~> 1.0)
+      faraday-em_synchrony (~> 1.0)
+      faraday-excon (~> 1.1)
+      faraday-httpclient (~> 1.0.1)
+      faraday-net_http (~> 1.0)
+      faraday-net_http_persistent (~> 1.1)
+      faraday-patron (~> 1.0)
+      faraday-rack (~> 1.0)
+      multipart-post (>= 1.2, < 3)
+      ruby2_keywords (>= 0.0.4)
+    faraday-em_http (1.0.0)
+    faraday-em_synchrony (1.0.0)
+    faraday-excon (1.1.0)
+    faraday-httpclient (1.0.1)
+    faraday-net_http (1.0.1)
+    faraday-net_http_persistent (1.2.0)
+    faraday-patron (1.0.0)
+    faraday-rack (1.0.0)
+    faraday_middleware (1.2.0)
+      faraday (~> 1.0)
     ffi (1.15.5)
     ffi-compiler (1.0.1)
       ffi (>= 1.0.0)
@@ -200,6 +221,7 @@ GEM
     mini_mime (1.1.2)
     minitest (5.15.0)
     msgpack (1.5.1)
+    multipart-post (2.1.1)
     nio4r (2.5.8)
     nokogiri (1.13.6-x86_64-darwin)
       racc (~> 1.4)
@@ -394,6 +416,8 @@ DEPENDENCIES
   country_select
   devise
   faker
+  faraday
+  faraday_middleware
   ice_cube
   image_processing (~> 1.2)
   listen (~> 3.3)

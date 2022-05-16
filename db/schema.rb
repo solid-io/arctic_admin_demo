@@ -84,6 +84,7 @@ ActiveRecord::Schema.define(version: 2022_05_13_162041) do
     t.string "os"
     t.string "browser"
     t.string "user_agent"
+    t.string "ip_address"
     t.text "message"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
