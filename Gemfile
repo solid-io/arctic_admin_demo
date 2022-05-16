@@ -51,6 +51,7 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem "spring"
   gem "annotate"                               # https://github.com/ctran/annotate_models
+  gem "brakeman"                               # https://github.com/presidentbeef/brakeman
 end
 
 group :test do
