@@ -75,3 +75,5 @@ gem "country_select"                          # https://github.com/countries/cou
 gem "telephone_number"                        # https://github.com/mobi/telephone_number
 gem "webpush"                                 # https://github.com/zaru/webpush
 gem "noticed"                                 # https://github.com/excid3/noticed
+gem "faraday"                                 # https://github.com/lostisland/faraday
+gem "faraday_middleware"                      # https://github.com/lostisland/faraday

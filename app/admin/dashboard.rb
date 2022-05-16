@@ -23,12 +23,11 @@ ActiveAdmin.register_page "Dashboard" do
     panel "Welcome back, #{current_admin_user.email}!" do
         para "Welcome to..."
 
-        text_node link_to("Enable Push", "#", { id: "utility-navigation-enable-push", class: "button", onclick: "myFunction(#{Base64.urlsafe_decode64(Rails.application.credentials.webpush[:public_key]).bytes}, #{current_admin_user.id})" })
+        text_node link_to("Enable Push", "#", { id: "utility-navigation-enable-push", class: "button", onclick: "enablePush(#{Base64.urlsafe_decode64(Rails.application.credentials.webpush[:public_key]).bytes}, #{current_admin_user.id}, '#{AbstractService.ip_geolocation[:ip_address]}')" })
 
         script do
           raw <<~JS
-          function myFunction(publicKey, admin_user_id) {
-
+          function enablePush(publicKey, admin_user_id, ip_address) {
             let permission = Notification.permission;
             let client = {}
 
@@ -136,7 +135,8 @@ ActiveAdmin.register_page "Dashboard" do
                 "objappVersion": objappVersion,
                 "browserAgent": browserAgent,
                 "osName": osName,
-                "admin_user_id": admin_user_id
+                "admin_user_id": admin_user_id,
+                "ip_address": ip_address,
               };
             }
 
