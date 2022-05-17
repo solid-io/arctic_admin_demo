@@ -2,6 +2,7 @@
 
 require "simplecov"
 SimpleCov.start do
+  coverage_dir "audits/simplecov/"
   add_group "Active Admin", ["/app/admin/"]
   add_group "Model",        "app/model"
   add_group "Controllers",  "app/controllers"
@@ -12,6 +13,8 @@ SimpleCov.start do
   add_group "Policies",     "app/policies"
   add_group "Views",        "app/views"
   add_group "Libraries",    "lib"
+  add_group "Notifications", "app/notifications"
+  add_group "Services",     "app/services"
 end
 Rails.application.eager_load!
 

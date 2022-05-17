@@ -52,6 +52,7 @@ group :development do
   gem "spring"
   gem "annotate"                               # https://github.com/ctran/annotate_models
   gem "brakeman"                               # https://github.com/presidentbeef/brakeman
+  gem "bundler-audit"                          # https://github.com/rubysec/bundler-audit
 end
 
 group :test do
