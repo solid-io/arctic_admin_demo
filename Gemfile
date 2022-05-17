@@ -81,3 +81,6 @@ gem "noticed"                                 # https://github.com/excid3/notice
 gem "faraday"                                 # https://github.com/lostisland/faraday
 gem "faraday_middleware"                      # https://github.com/lostisland/faraday
 gem "name_of_person"                          # https://github.com/basecamp/name_of_person
+gem "net-smtp", require: false                # https://github.com/ruby/net-smtp # https://stackoverflow.com/questions/70500220/rails-7-ruby-3-1-loaderror-cannot-load-such-file-net-smtp
+gem "net-pop", require: false                 # https://github.com/ruby/net-pop  # https://stackoverflow.com/questions/70500220/rails-7-ruby-3-1-loaderror-cannot-load-such-file-net-smtp
+gem "net-imap", require: false                # https://github.com/ruby/net-imap # https://stackoverflow.com/questions/70500220/rails-7-ruby-3-1-loaderror-cannot-load-such-file-net-smtp
