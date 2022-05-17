@@ -58,18 +58,18 @@ jobs:
           bin/rails test
 
       - name: Upload SimpleCov coverage results
-          uses: actions/upload-artifact@v3
-          with:
-            name: simplcov-coverage-report
-            path: coverage
-            retention-days: 5
+        uses: actions/upload-artifact@v3
+        with:
+          name: simplcov-coverage-report
+          path: coverage
+          retention-days: 5
 
       - name: Upload Brakeman coverage results
-          uses: actions/upload-artifact@v3
-          with:
-            name: brakeman-coverage-report
-            path: breakman
-            retention-days: 5
+        uses: actions/upload-artifact@v3
+        with:
+          name: brakeman-coverage-report
+          path: breakman
+          retention-days: 5
 
       - name: Send custom JSON data to Slack workflow
         uses: slackapi/slack-github-action@v1.18.0
