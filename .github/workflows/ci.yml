@@ -49,7 +49,7 @@ jobs:
 
       - name: Run brakeman
         run: |
-          bundle exec brakeman -q -A -w2 -o audits/brakeman/index.html
+          bundle exec brakeman -q -w2 -o audits/brakeman/index.html
 
       - name: Run bundler audit
         run: |

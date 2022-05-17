@@ -189,10 +189,10 @@ p {
       <td>6.1.6</td>
       <td>5.2.3
       <td>
-        2022-05-17 09:07:35 -0600<br><br>
-        1.436137 seconds
+        2022-05-17 09:18:01 -0600<br><br>
+        1.413041 seconds
       </td>
-      <td>BasicAuth, BasicAuthTimingAttack, CSRFTokenForgeryCVE, ContentTag, CookieSerialization, CreateWith, CrossSiteScripting, DefaultRoutes, Deserialize, DetailedExceptions, DigestDoS, DivideByZero, DynamicFinders, EOLRails, EOLRuby, EscapeFunction, Evaluation, Execute, FileAccess, FileDisclosure, FilterSkipping, ForceSSL, ForgerySetting, HeaderDoS, I18nXSS, JRubyXML, JSONEncoding, JSONEntityEscape, JSONParsing, LinkTo, LinkToHref, MailTo, MassAssignment, MimeTypeDoS, ModelAttrAccessible, ModelAttributes, ModelSerialize, NestedAttributes, NestedAttributesBypass, NumberToCurrency, PageCachingCVE, PermitAttributes, QuoteTableName, Redirect, RegexDoS, Render, RenderDoS, RenderInline, ResponseSplitting, ReverseTabnabbing, RouteDoS, SQL, SQLCVEs, SSLVerify, SafeBufferManipulation, SanitizeMethods, Secrets, SelectTag, SelectVulnerability, Send, SendFile, SessionManipulation, SessionSettings, SimpleFormat, SingleQuotes, SkipBeforeFilter, SprocketsPathTraversal, StripTags, SymbolDoS, SymbolDoSCVE, TemplateInjection, TranslateBug, UnsafeReflection, UnsafeReflectionMethods, UnscopedFind, ValidationRegex, VerbConfusion, WeakHash, WithoutProtection, XMLDoS, YAMLParsing</td>
+      <td>BasicAuth, BasicAuthTimingAttack, CSRFTokenForgeryCVE, ContentTag, CookieSerialization, CreateWith, CrossSiteScripting, DefaultRoutes, Deserialize, DetailedExceptions, DigestDoS, DynamicFinders, EOLRails, EOLRuby, EscapeFunction, Evaluation, Execute, FileAccess, FileDisclosure, FilterSkipping, ForgerySetting, HeaderDoS, I18nXSS, JRubyXML, JSONEncoding, JSONEntityEscape, JSONParsing, LinkTo, LinkToHref, MailTo, MassAssignment, MimeTypeDoS, ModelAttrAccessible, ModelAttributes, ModelSerialize, NestedAttributes, NestedAttributesBypass, NumberToCurrency, PageCachingCVE, PermitAttributes, QuoteTableName, Redirect, RegexDoS, Render, RenderDoS, RenderInline, ResponseSplitting, RouteDoS, SQL, SQLCVEs, SSLVerify, SafeBufferManipulation, SanitizeMethods, SelectTag, SelectVulnerability, Send, SendFile, SessionManipulation, SessionSettings, SimpleFormat, SingleQuotes, SkipBeforeFilter, SprocketsPathTraversal, StripTags, SymbolDoSCVE, TemplateInjection, TranslateBug, UnsafeReflection, UnsafeReflectionMethods, ValidationRegex, VerbConfusion, WithoutProtection, XMLDoS, YAMLParsing</td>
     </tr>
   </tbody>
 </table>
@@ -224,7 +224,7 @@ p {
     </tr>
     <tr>
       <td>Security Warnings</td>
-      <td>1 <span class='high-confidence'>(1)</span></td>
+      <td>0 <span class='high-confidence'>(0)</span></td>
     </tr>
   
     <tr>
@@ -235,83 +235,4 @@ p {
   </tbody>
 </table>
 <br>
-<table>
-  <thead>
-    <tr>
-      <th>Warning Type</th>
-      <th>Total</th>
-    </tr>
-  </thead>
-  <tbody>
-  
-    <tr>
-      <td>Missing Encryption</td>
-      <td>1</td>
-    </tr>
-  
-  </tbody>
-</table>
-<br>
-<h2>Security Warnings</h2>  
-<table>
-  <thead>
-    <tr>
-      <th>Confidence</th>
-      <th>Class</th>
-      <th>Method</th>
-      <th>Warning Type</th>
-      <th>Message</th>
-    </tr>
-  </thead>
-  <tbody>
-  
-    <tr>
-      <td><span class='high-confidence'>High</span></td>
-      <td></td>
-      <td></td>
-      <td><a rel="noreferrer" href="https://brakemanscanner.org/docs/warning_types/missing_encryption/">Missing Encryption</a></td>
-      <td><div class='warning_message' onClick="toggle('context1');toggle('message1');toggle('full_message1')" >The application does not force use of HTTPS: <span class="code">config.force_ssl</span> is not enabled near line 1<table id='context1' class='context' style='display:none'><caption>config/environments/production.rb</caption>      <thead style='display:none'>
-        <tr>
-          <th>line number</th>
-          <th>line content</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr class='context first error'>
-          <td class='context_line'>
-            <pre class='context'>1</pre>
-          </td>
-          <td class='context'>
-            <pre class='context'># frozen_string_literal: true</pre>
-          </td>
-        </tr>
-          <tr class='context alt'>
-            <td class='context_line'>
-              <pre class='context'>3</pre>
-            </td>
-            <td class='context'>
-              <pre class='context'>require &quot;active_support/core_ext/integer/time&quot;</pre>
-            </td>
-          </tr>
-          <tr class='context'>
-            <td class='context_line'>
-              <pre class='context'>5</pre>
-            </td>
-            <td class='context'>
-              <pre class='context'>Rails.application.configure do</pre>
-            </td>
-          </tr>
-          <tr class='context alt'>
-            <td class='context_line'>
-              <pre class='context'>6</pre>
-            </td>
-            <td class='context'>
-              <pre class='context'>  # Settings specified here will take precedence over those in config/application.rb.</pre>
-            </td>
-          </tr>
-</tbody></table></div></td>
-    </tr>
-  
-  </tbody>
-</table>
 </body></html>
