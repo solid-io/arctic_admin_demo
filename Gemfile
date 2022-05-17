@@ -77,3 +77,4 @@ gem "webpush"                                 # https://github.com/zaru/webpush
 gem "noticed"                                 # https://github.com/excid3/noticed
 gem "faraday"                                 # https://github.com/lostisland/faraday
 gem "faraday_middleware"                      # https://github.com/lostisland/faraday
+gem "name_of_person"                          # https://github.com/basecamp/name_of_person

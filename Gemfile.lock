@@ -222,6 +222,8 @@ GEM
     minitest (5.15.0)
     msgpack (1.5.1)
     multipart-post (2.1.1)
+    name_of_person (1.1.1)
+      activesupport (>= 5.2.0)
     nio4r (2.5.8)
     nokogiri (1.13.6-x86_64-darwin)
       racc (~> 1.4)
@@ -421,6 +423,7 @@ DEPENDENCIES
   ice_cube
   image_processing (~> 1.2)
   listen (~> 3.3)
+  name_of_person
   noticed
   pg (~> 1.1)
   pry
