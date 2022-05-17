@@ -46,6 +46,10 @@ jobs:
       - name: Run rubocop
         run: |
           bundle exec rubocop
+          
+      - name: Run brakeman
+        run: |
+          bundle exec brakeman -o brakeman/index.html
 
       - name: Run tests
         env:
@@ -68,7 +72,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: brakeman-coverage-report
-          path: breakman
+          path: brakeman
           retention-days: 5
 
       - name: Send custom JSON data to Slack workflow
