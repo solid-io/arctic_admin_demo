@@ -38,18 +38,22 @@ jobs:
 
       - name: Bundle install dependencies
         env:
-            RAILS_ENV: test
+          RAILS_ENV: test
         run: |
           bundle config path vendor/bundle
-          bundle install --jobs 4 --retry 3
+          bundle install --jobs 4 --retry 3 --quiet
 
       - name: Run rubocop
         run: |
-          bundle exec rubocop
-          
+          bundle exec rubocop --parallel
+
       - name: Run brakeman
         run: |
-          bundle exec brakeman -o brakeman/index.html
+          bundle exec brakeman -q -w2 -o audits/brakeman/index.html
+
+      - name: Run bundler audit
+        run: |
+          bundle exec bundle-audit --update --format json --output audits/bundler/index.json
 
       - name: Run tests
         env:
@@ -58,21 +62,14 @@ jobs:
           RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
           PG_USER: postgres
         run: |
-          bin/rails db:test:prepare
+          bin/rails db:test:prepare --quiet
           bin/rails test
 
-      - name: Upload SimpleCov coverage results
+      - name: Upload Audit Results
         uses: actions/upload-artifact@v3
         with:
-          name: simplcov-coverage-report
-          path: coverage
-          retention-days: 5
-
-      - name: Upload Brakeman coverage results
-        uses: actions/upload-artifact@v3
-        with:
-          name: brakeman-coverage-report
-          path: brakeman
+          name: audits
+          path: audits
           retention-days: 5
 
       - name: Send custom JSON data to Slack workflow
