@@ -53,6 +53,7 @@ group :development do
   gem "annotate"                               # https://github.com/ctran/annotate_models
   gem "brakeman"                               # https://github.com/presidentbeef/brakeman
   gem "bundler-audit"                          # https://github.com/rubysec/bundler-audit
+  gem "ruby_audit"                             # https://github.com/civisanalytics/ruby_audit
 end
 
 group :test do

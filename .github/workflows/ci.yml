@@ -55,6 +55,10 @@ jobs:
         run: |
           bundle exec bundle-audit --update --format json --output audits/bundler/index.json
 
+      - name: Run ruby audit
+        run: |
+          bundle exec ruby-audit check
+
       - name: Run tests
         env:
           DATABASE_URL: postgres://postgres:password@localhost:5432/test
