@@ -59,6 +59,10 @@ jobs:
         run: |
           bundle exec ruby-audit check
 
+      - name: Run rails best practices
+        run: |
+          bundle exec rails_best_practices -f html --output-file audits/rails_best_practices/index.html
+
       - name: Run tests
         env:
           DATABASE_URL: postgres://postgres:password@localhost:5432/test

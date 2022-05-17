@@ -54,6 +54,7 @@ group :development do
   gem "brakeman"                               # https://github.com/presidentbeef/brakeman
   gem "bundler-audit"                          # https://github.com/rubysec/bundler-audit
   gem "ruby_audit"                             # https://github.com/civisanalytics/ruby_audit
+  gem "rails_best_practices"                   # https://github.com/flyerhzm/rails_best_practices
 end
 
 group :test do
