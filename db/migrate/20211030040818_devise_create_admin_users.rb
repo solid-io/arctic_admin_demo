@@ -28,10 +28,12 @@ class DeviseCreateAdminUsers < ActiveRecord::Migration[6.1]
       # t.string   :unconfirmed_email # Only if using reconfirmable
 
       ## Lockable
-      # t.integer  :failed_attempts, default: 0, null: false # Only if lock strategy is :failed_attempts
-      # t.string   :unlock_token # Only if unlock strategy is :email or :both
-      # t.datetime :locked_at
+      t.integer  :failed_attempts, default: 0, null: false # Only if lock strategy is :failed_attempts
+      t.string   :unlock_token # Only if unlock strategy is :email or :both
+      t.datetime :locked_at
 
+      t.string   :first_name
+      t.string   :last_name
 
       t.timestamps null: false
     end
@@ -39,6 +41,6 @@ class DeviseCreateAdminUsers < ActiveRecord::Migration[6.1]
     add_index :admin_users, :email,                unique: true
     add_index :admin_users, :reset_password_token, unique: true
     # add_index :admin_users, :confirmation_token,   unique: true
-    # add_index :admin_users, :unlock_token,         unique: true
+    add_index :admin_users, :unlock_token,         unique: true
   end
 end

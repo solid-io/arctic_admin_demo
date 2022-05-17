@@ -11,7 +11,7 @@
    company_epi.locations.create!(name: "Main Office", address_1: "311 Main Vista Drive", address_2: "", city: "Dallas", state: "Texas", postal: "75420", country: "US", time_zone: "Central Time (US & Canada)")
    company_epi.locations.create!(name: "Satellite Office", address_1: "10000 Julian Way", address_2: "", city: "Westminster", state: "Colorado", postal: "80031", country: "US", time_zone: "Mountain Time (US & Canada)")
 
-   super_admin = AdminUser.create!(email: demo_email, password: demo_password, password_confirmation: demo_password, time_zone: "Pacific Time (US & Canada)")
+   super_admin = AdminUser.create!(first_name: "Jack", last_name: "Paradise", email: demo_email, password: demo_password, password_confirmation: demo_password, time_zone: "Pacific Time (US & Canada)")
    super_admin.admin_user_companies.create!(company_id: company_epi.id)
    AdminUserNotificationPreference.create!(admin_user_id: super_admin.id) # DB Defaults = email_enabled: true, push_enabled: true, sns_enabled: false
    super_admin.admin_user_help_preferences.create!(admin_user_id: super_admin.id, controller_name: "notification_types") # DB Defaults = enabled: true
@@ -20,7 +20,7 @@
    super_admin.addresses.create!(label: "Home", address_line_1: "311 Home Brew Road", address_line_2: "", city: "Omaha", state: "NE", zip: "68104", default: false)
 
 
-   admin = AdminUser.create!(email: admin_email, password: demo_password, password_confirmation: demo_password, time_zone: "Pacific Time (US & Canada)")
+   admin = AdminUser.create!(first_name: "Jason", last_name: "Rossi", email: admin_email, password: demo_password, password_confirmation: demo_password, time_zone: "Pacific Time (US & Canada)")
    admin.admin_user_companies.create!(company_id: company_hgs.id)
    AdminUserNotificationPreference.create!(admin_user_id: admin.id) # DB Defaults = email_enabled: true, push_enabled: true, sns_enabled: false
    admin.admin_user_help_preferences.create!(admin_user_id: admin.id, controller_name: "notification_types") # DB Defaults = enabled: true

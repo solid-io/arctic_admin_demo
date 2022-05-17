@@ -3,7 +3,7 @@
 ActiveAdmin.register AdminUser do
   menu parent: "Administration"
 
-  permit_params :email, :password, :password_confirmation, :time_zone, :avatar,
+  permit_params :first_name, :last_name, :email, :password, :password_confirmation, :time_zone, :avatar,
                 admin_user_companies_attributes: [:id, :admin_user_id, :company_id, :_destroy],
                 admin_user_help_preferences_attributes: [:id, :controller_name, :enabled, :_destroy],
                 addresses_attributes: [:id, :label, :address_line_1, :address_line_2, :city, :state, :zip, :default, :_destroy],
@@ -22,16 +22,34 @@ ActiveAdmin.register AdminUser do
 
   member_action :send_email_example, mehtod: :get do
     ExampleMailer.trust_pilot_invitation(resource).deliver_later
-    redirect_to send("edit_admin_#{controller_name.singularize}_path", params[:id]), notice: "Your email has been sent.."
+    redirect_to send("edit_admin_#{controller_name.singularize}_path", params[:id]), notice: "Your email has been send."
   end
 
-  action_item :send_push, only: :edit  do
-    link_to("Send push", send("send_push_admin_#{controller_name.singularize}_path"), { class: "button" })
+  action_item :send_push, only: :edit, if: proc { resource.admin_device_tokens.webpush.any? }   do
+    link_to("Test Webpush", send("send_push_admin_#{controller_name.singularize}_path"), { class: "button" })
   end
 
   member_action :send_push, mehtod: :get  do
     UserNotification.with(user: resource).deliver(resource)
-    redirect_to send("edit_admin_#{controller_name.singularize}_path", params[:id]), notice: "Your webpush notification has been sent.."
+    redirect_to send("edit_admin_#{controller_name.singularize}_path", params[:id]), notice: "Your webpush notification has been sent."
+  end
+
+  action_item :lock, only: :edit, if: proc { resource.locked_at.blank? }  do
+    link_to("Lock", send("lock_admin_#{controller_name.singularize}_path"), { class: "button" })
+  end
+
+  member_action :lock, mehtod: :get  do
+    resource.lock
+    redirect_to send("edit_admin_#{controller_name.singularize}_path", params[:id]), notice: "User has been locked."
+  end
+
+  action_item :unlock, only: :edit, if: proc { resource.locked_at.present? }  do
+    link_to("Unlock", send("unlock_admin_#{controller_name.singularize}_path"), { class: "button" })
+  end
+
+  member_action :unlock, mehtod: :get  do
+    resource.unlock
+    redirect_to send("edit_admin_#{controller_name.singularize}_path", params[:id]), notice: "User has been unlocked."
   end
 
   member_action :delete_avatar, method: :get do
@@ -50,13 +68,13 @@ ActiveAdmin.register AdminUser do
   index do
     selectable_column
     id_column
+    column :name
     column :email
     column :current_sign_in_at
     column :sign_in_count
     column :time_zone
-    column("Locked Out") { |user| icon("fas", true ? "lock" : "lock-open") }
-    column("Locked In") { |user| icon("fas", false ? "lock" : "lock-open") }
-    column("Locked In") { |user| icon("fas", true ? "user" : "lock-open") }
+    column("Locked") { |user| user.locked_at.present? ? icon("fas", "lock") : icon("fas", "lock-open") }
+    column :locked_at
     column :created_at
     actions
   end

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class AdminUser < ApplicationRecord
+  has_person_name
   has_one_attached :avatar, dependent: :destroy
   has_many :admin_user_companies, dependent: :destroy
   has_many :companies, through: :admin_user_companies
@@ -19,8 +20,8 @@ class AdminUser < ApplicationRecord
   accepts_nested_attributes_for :phones, allow_destroy: true
 
   # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable, :validatable
-  devise :database_authenticatable,
+  # :confirmable, :timeoutable, :omniauthable, :validatable
+  devise :database_authenticatable, :lockable,
          :recoverable, :rememberable, :trackable
 
   validates :email, presence: true
@@ -42,6 +43,14 @@ class AdminUser < ApplicationRecord
 
   def allow
     self.time_zone != "Pacific Time (US & Canada)"
+  end
+
+  def lock
+    self.update!(locked_at: Time.now)
+  end
+
+  def unlock
+    self.update!(locked_at: nil, failed_attempts: 0)
   end
 
   private

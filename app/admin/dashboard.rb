@@ -20,7 +20,7 @@ ActiveAdmin.register_page "Dashboard" do
   # REPORTS = %w[AdminUsers Companies Locations Schedules]
 
   content do
-    panel "Welcome back, #{current_admin_user.email}!" do
+    panel "Welcome back, #{current_admin_user.name}!" do
         para "Welcome to..."
 
         text_node link_to("Enable Push", "#", { id: "utility-navigation-enable-push", class: "button", onclick: "enablePush(#{Base64.urlsafe_decode64(Rails.application.credentials.webpush[:public_key]).bytes}, #{current_admin_user.id}, '#{AbstractService.ip_geolocation[:ip_address]}')" })
