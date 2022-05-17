@@ -3,7 +3,7 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "3.0.0"
+ruby "3.1.2"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem "rails", "~> 6.1.4", ">= 6.1.4.1"
@@ -53,6 +53,7 @@ group :development do
   gem "annotate"                               # https://github.com/ctran/annotate_models
   gem "brakeman"                               # https://github.com/presidentbeef/brakeman
   gem "bundler-audit"                          # https://github.com/rubysec/bundler-audit
+  gem "ruby_audit"                             # https://github.com/civisanalytics/ruby_audit
 end
 
 group :test do
@@ -80,3 +81,6 @@ gem "noticed"                                 # https://github.com/excid3/notice
 gem "faraday"                                 # https://github.com/lostisland/faraday
 gem "faraday_middleware"                      # https://github.com/lostisland/faraday
 gem "name_of_person"                          # https://github.com/basecamp/name_of_person
+gem "net-smtp", require: false                # https://github.com/ruby/net-smtp # https://stackoverflow.com/questions/70500220/rails-7-ruby-3-1-loaderror-cannot-load-such-file-net-smtp
+gem "net-pop", require: false                 # https://github.com/ruby/net-pop  # https://stackoverflow.com/questions/70500220/rails-7-ruby-3-1-loaderror-cannot-load-such-file-net-smtp
+gem "net-imap", require: false                # https://github.com/ruby/net-imap # https://stackoverflow.com/questions/70500220/rails-7-ruby-3-1-loaderror-cannot-load-such-file-net-smtp

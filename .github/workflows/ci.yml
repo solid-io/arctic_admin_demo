@@ -23,10 +23,10 @@ jobs:
       - name: Checkout master
         uses: actions/checkout@master
 
-      - name: Setup Ruby 3.0.0
+      - name: Setup Ruby 3.1.2
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 3.0.0
+          ruby-version: 3.1.2
 
       - name: Cache dependencies
         uses: actions/cache@v2
@@ -54,6 +54,10 @@ jobs:
       - name: Run bundler audit
         run: |
           bundle exec bundle-audit --update --format json --output audits/bundler/index.json
+
+      - name: Run ruby audit
+        run: |
+          bundle exec ruby-audit check
 
       - name: Run tests
         env:
