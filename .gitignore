@@ -53,6 +53,10 @@ yarn-debug.log*
 !/audits/rails_best_practices/
 !/audits/rails_best_practices/.keep
 
+/audits/rubocop/*
+!/audits/rubocop/
+!/audits/rubocop/.keep
+
 /audits/simplecov/*
 !/audits/simplecov/
 !/audits/simplecov/.keep

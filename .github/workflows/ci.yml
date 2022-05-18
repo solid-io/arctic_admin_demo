@@ -45,7 +45,7 @@ jobs:
 
       - name: Run rubocop
         run: |
-          bundle exec rubocop --parallel
+          bundle exec rubocop --format html -o audits/rubocop/index.html --format offenses --format progress --parallel
 
       - name: Run brakeman
         run: |
