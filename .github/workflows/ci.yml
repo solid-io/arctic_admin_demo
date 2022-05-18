@@ -61,7 +61,7 @@ jobs:
 
       - name: Run rails best practices
         run: |
-          bundle exec rails_best_practices -f html --output-file audits/rails_best_practices/index.html
+          bundle exec rails_best_practices -f html --output-file audits/rails_best_practices/index.html -e "app/helpers,node_modules"
 
       - name: Run tests
         env:

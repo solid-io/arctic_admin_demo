@@ -1,7 +1,7 @@
 
 <% context.instance_eval do
     panel link_to "Schedule Calendar", edit_admin_schedule_path(schedule) do
-      render partial: 'calendar'
+      render 'calendar', locals: { events: events }
     end
     panel "Schedule Details" do
       table_for schedule do
