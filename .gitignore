@@ -36,4 +36,9 @@ yarn-debug.log*
 .yarn-integrity
 
 .DS_Store
+
 /audits/**
+/audits/brakeman/**
+/audits/bundler/**
+/audits/rails_best_practices/**
+/audits/simplecov/**
