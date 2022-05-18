@@ -37,8 +37,22 @@ yarn-debug.log*
 
 .DS_Store
 
-/audits/**
-/audits/brakeman/**
-/audits/bundler/**
-/audits/rails_best_practices/**
-/audits/simplecov/**
+/audits/*
+!/audits/
+!/audits/.keep
+
+/audits/brakeman/*
+!/audits/brakeman/
+!/audits/brakeman/.keep
+
+/audits/bundler/*
+!/audits/bundler/
+!/audits/bundler/.keep
+
+/audits/rails_best_practices/*
+!/audits/rails_best_practices/
+!/audits/rails_best_practices/.keep
+
+/audits/simplecov/*
+!/audits/simplecov/
+!/audits/simplecov/.keep
