@@ -45,7 +45,7 @@ jobs:
 
       - name: Run rubocop
         run: |
-          bundle exec rubocop --parallel
+          bundle exec rubocop --format html -o audits/rubocop/index.html --format offenses --format progress --parallel
 
       - name: Run brakeman
         run: |
@@ -58,6 +58,10 @@ jobs:
       - name: Run ruby audit
         run: |
           bundle exec ruby-audit check
+
+      - name: Run rails best practices
+        run: |
+          bundle exec rails_best_practices -f html --output-file audits/rails_best_practices/index.html -e "app/helpers,node_modules"
 
       - name: Run tests
         env:

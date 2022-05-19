@@ -1,5 +1,5 @@
-<% if @events.present? %>
-  <%= month_calendar(attribute: :start_date, beginning_of_week: :sunday, events: @events) do |date, events| %>
+<% if local_assigns[:locals][:events].present? %>
+  <%= month_calendar(attribute: :start_date, beginning_of_week: :sunday, events: local_assigns[:locals][:events]) do |date, events| %>
     <div style="font-weight: medium; margin-bottom: 5px;"><%= date.strftime("%d") %></div>
     <% events.sort_by(&:start_time).each do |event| %>
     <% case %>

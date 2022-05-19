@@ -71,9 +71,9 @@ class Schedule < ApplicationRecord
     scheduled_events.delete_if { |event| event.start_time < Time.now.in_time_zone(time_zone).to_time }
   end
 
-  def handle_rule_minute_rejections(scheduled_events)
-    scheduled_events.delete_if { |event| event.start_time < included.rule_date_with_time(included.start_date, included.rule_hour_start) }
-  end
+  # def handle_rule_minute_rejections(scheduled_events)
+  #   scheduled_events.delete_if { |event| event.start_time < included.rule_date_with_time(included.start_date, included.rule_hour_start) }
+  # end
 
   def get_scheduled_events
     return nil unless rules.inclusion.present?
@@ -148,7 +148,7 @@ class Schedule < ApplicationRecord
 
   def remove_holidays(schedule)
     schedule.rules.exclusion.each do |rule|
-      if Schedule::NATIONAL_HOLIDAYS.has_key?(rule.start_date.to_s) && Schedule::NATIONAL_HOLIDAYS.invert.has_key?(rule.name) && rule.end_date.nil? && rule.rule_hour_start.blank? && rule.rule_hour_end.blank?
+      if Schedule::NATIONAL_HOLIDAYS.has_key?(rule.start_date.to_s) && Schedule::NATIONAL_HOLIDAYS.invert.has_key?(rule.name) && !rule.end_date? && !rule.rule_hour_start? && !rule.rule_hour_end?
         rule.destroy
       end
     end

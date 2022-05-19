@@ -36,3 +36,27 @@ yarn-debug.log*
 .yarn-integrity
 
 .DS_Store
+
+/audits/*
+!/audits/
+!/audits/.keep
+
+/audits/brakeman/*
+!/audits/brakeman/
+!/audits/brakeman/.keep
+
+/audits/bundler/*
+!/audits/bundler/
+!/audits/bundler/.keep
+
+/audits/rails_best_practices/*
+!/audits/rails_best_practices/
+!/audits/rails_best_practices/.keep
+
+/audits/rubocop/*
+!/audits/rubocop/
+!/audits/rubocop/.keep
+
+/audits/simplecov/*
+!/audits/simplecov/
+!/audits/simplecov/.keep

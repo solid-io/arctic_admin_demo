@@ -10,7 +10,6 @@ class ContactTypeLabel < ApplicationRecord
   validates :contact_type, :label, presence: true
 
   scope :address_labels, -> { where(contact_type: "address") }
-  scope :email_labels, -> { where(contact_type: "email") }
   scope :phone_labels, -> { where(contact_type: "phone") }
 
   before_save :humanize_label, if: :label_changed

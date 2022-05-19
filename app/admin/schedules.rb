@@ -149,7 +149,7 @@ ActiveAdmin.register Schedule do
   end
 
   show do
-    render partial: "show", locals: { context: self }
+    render partial: "show", locals: { context: self, events: events }
   end
 
   csv do
