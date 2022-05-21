@@ -1,11 +1,20 @@
 # frozen_string_literal: true
 
-desc "Run all audits add [true] to open the reports in a browser"
-task :audits, :open do |task, args|
+desc "Run all audits | rails audits -- --open=true --rubocop=true"
+task :audits do |task|
   if Rails.env.development?
-    args.with_defaults(open: false)
+    options = { open: nil, auto: nil }
+    option_parser = OptionParser.new do |opts|
+      opts.banner = "Usage: rake audit [options]"
+      opts.on("-o", "--open TRUE") { |o| options[:open] = o }
+      opts.on("-r", "--rubocop TRUE") { |r| options[:rubocop] = r }
+    end
 
-    @open = args.open
+    args = option_parser.order!(ARGV) { }
+    option_parser.parse!(args)
+
+    @open_reports = options[:open].nil? ? false : true
+    @rubocop_auto_correct = options[:rubocop].nil? ? "" : "-A"
     @task_name = task.name
     @start_at = Time.now
     @files = [
@@ -31,7 +40,7 @@ task :audits, :open do |task, args|
 
     def start_logging(start_time = Time.zone.now, log_file = "log/audits.log")
       log = ActiveSupport::Logger.new(log_file)
-      log_and_show log, Logger::INFO, "Task #{@task_name} with open=#{@open} started at #{start_time}"
+      log_and_show log, Logger::INFO, "Task #{@task_name} with open=#{@open_reports} started at #{start_time}"
       log
     end
 
@@ -59,7 +68,7 @@ task :audits, :open do |task, args|
     end
 
     def rails_best_practices
-      log_and_show @log, Logger::INFO, "Running rails best practices"
+      log_and_show @log, Logger::INFO, "Running rails best practice"
       sh "rails_best_practices -f html --output-file #{filepath(:rails_best_practices)} -e 'app/helpers,node_modules'", verbose: false
       rescue StandardError => e
         log_and_show @log, Logger::ERROR, "Error running rails_best_practices: #{e.message}"
@@ -75,6 +84,8 @@ task :audits, :open do |task, args|
       sh "rubocop --format html -o #{filepath(:rubocop)} --format offenses --format progress --parallel", verbose: false
       rescue StandardError => e
         log_and_show @log, Logger::ERROR, "Error running rubocop: #{e.message}"
+        sh "rm -fv #{filepath(:rubocop)}" if @rubocop_auto_correct.present?
+        sh "rubocop #{@rubocop_auto_correct} --format html -o #{filepath(:rubocop)} --format offenses --format progress", verbose: false if @rubocop_auto_correct.present?
     end
 
     def rails_tests
@@ -87,7 +98,7 @@ task :audits, :open do |task, args|
     def reports
       log_and_show @log, Logger::INFO, "Opening Reports in Browser"
       @files.flat_map { |x| x.values }.reject { |x| x == "audits/bundler/index.json" }.each do |file|
-        sh "open #{file}", verbose: false if ActiveModel::Type::Boolean.new.cast(@open)
+        sh "open #{file}", verbose: false if ActiveModel::Type::Boolean.new.cast(@open_reports)
         rescue StandardError => e
           log_and_show @log, Logger::ERROR, "Error opening report file:#{file} error: #{e.message}"
       end
@@ -97,7 +108,7 @@ task :audits, :open do |task, args|
       end_at = Time.now
       less_than_minute = (end_at - @start_at) < 60
       duration = (end_at - @start_at) < 60 ? (end_at - @start_at).to_i : ((end_at - @start_at) / 60.seconds).to_i
-      log_and_show @log, Logger::INFO, "Task #{@task_name} with open=#{@open} finished at #{end_at} | Duration: #{duration} #{less_than_minute ? 'seconds' : 'minutes'}"
+      log_and_show @log, Logger::INFO, "Task #{@task_name} with open=#{@open_reports} finished at #{end_at} | Duration: #{duration} #{less_than_minute ? 'seconds' : 'minutes'}"
     end
 
     @log = start_logging(@start_at)
