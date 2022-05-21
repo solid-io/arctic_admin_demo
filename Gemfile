@@ -55,6 +55,7 @@ group :development do
   gem "bundler-audit"                          # https://github.com/rubysec/bundler-audit
   gem "ruby_audit"                             # https://github.com/civisanalytics/ruby_audit
   gem "rails_best_practices"                   # https://github.com/flyerhzm/rails_best_practices
+  gem "rails-erd"                              # https://github.com/voormedia/rails-erd https://voormedia.github.io/rails-erd/install.html
 end
 
 group :test do
