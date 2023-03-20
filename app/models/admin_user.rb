@@ -26,7 +26,7 @@ class AdminUser < ApplicationRecord
 
   validates :email, presence: true
   validates :email, uniqueness: true, if: :will_save_change_to_email?
-  validates :email, format: { with: /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i }, if: :will_save_change_to_email?
+  validates :email, format: { with: /\A[\w+\-.]+@[a-z\d-]+(\.[a-z\d-]+)*\.[a-z]+\z/i }, if: :will_save_change_to_email?
 
   validates :password, presence: true, if: :password_required?
   validates :password_confirmation, presence: true, if: :password_required?

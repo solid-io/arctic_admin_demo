@@ -1,5 +1,7 @@
  # frozen_string_literal: true
 
+ p "Seeding database..."
+
  if Rails.env.development?
    demo_email = Rails.application.credentials.seed[:demo_email]
    demo_password = Rails.application.credentials.seed[:demo_password]
